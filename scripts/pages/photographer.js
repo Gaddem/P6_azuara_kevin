@@ -5,7 +5,7 @@ async function getInfosPhotographer(id_photographer) {
         .then((response) => response.json())
         .then((json) =>{
              let arrayOfOncePhotographer = json.photographers.filter(photographer => photographer.id == id_photographer);
-             console.log(arrayOfOncePhotographer[0]);
+            //  console.log(arrayOfOncePhotographer[0]);
             return arrayOfOncePhotographer[0];
         });
         return test;
@@ -15,7 +15,7 @@ async function getMediaPhotographer(id_photographer) {
     .then((response) => response.json())
     .then((json) =>{
          let arrayOfAllMedia= json.media.filter(media => media.photographerId == id_photographer);
-         console.log(arrayOfAllMedia);
+        //  console.log(arrayOfAllMedia);
         return arrayOfAllMedia;
     });
     return test;
@@ -87,8 +87,8 @@ async function init() {
     await getInfosPhotographer(id_photographer).then(async(resPhotographer)=>{
         await displayDataPhotographer(resPhotographer);
         await getMediaPhotographer(id_photographer).then(async(resMedia)=>{
-            resMedia.namePhotographer= resPhotographer.name; //Attribution du nom du Photographe afin de retourver son dossier de photo par la suite
-            await displayMediaPhotographer(resMedia);
+            const arrayOfMediaMoreName = resMedia.map((mediaRecup)=>({ ...mediaRecup, namePhotographer : resPhotographer.name})) //Attribution du nom du Photographe afin de retourver son dossier de photo par la suite
+            await displayMediaPhotographer(arrayOfMediaMoreName);
     
         })
     })
