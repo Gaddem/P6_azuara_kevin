@@ -30,6 +30,7 @@
     align-items: center;
     height: 31px;
     margin-top: 5px;
+    width:350px;
 }
 #like_part{
     display: flex;
@@ -42,6 +43,26 @@
     font-weight: 700;
     font-size: 18px; 
     line-height:23.44px ;
+}
+
+#section_like_price{
+    position: fixed;
+    bottom: -13px;
+    right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 102px;
+    width: 276px;
+    border-radius: 5px;
+    background-color: #DB8876;
+    padding:0 20px 0 20px;
+}
+#likes_more_icon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .contact_button {

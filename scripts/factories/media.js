@@ -47,8 +47,8 @@ function mediaFactory(data) {
             default:
                 break;
         }
+
         const section_foot = document.createElement( 'section' );
-        section_foot.style.width ="350px";
         section_foot.setAttribute("id", "section_foot");
 
         const title_article = document.createElement( 'h1' );
@@ -58,13 +58,11 @@ function mediaFactory(data) {
         title_article.style.fontStyle ="24px";
         title_article.style.fontStyle = "31.25px";
 
-
+        //partie like et son icon
         const like_part = document.createElement( 'div' );
         like_part.setAttribute("id", "like_part");
         
-
-        
-
+        //nombre like
         const nblike_article = document.createElement( 'h1' );
         nblike_article.textContent = likes;
         nblike_article.style.fontWeight = 500;
@@ -72,23 +70,18 @@ function mediaFactory(data) {
         nblike_article.style.fontStyle ="24px";
         nblike_article.style.fontStyle = "31.25px";
 
-
-
+        //icone coeur
         const icon_like = document.createElement('img');
-        icon_like.setAttribute("src","../assets/icons/heart.svg");
+        icon_like.setAttribute("src","../assets/icons/heart_red.svg");
         icon_like.style.width="17.5px";
         icon_like.style.height="18.35px";
-
         icon_like.style.marginLeft="4px";
-        
-
-
-        section_foot.appendChild(title_article);
 
         like_part.appendChild(nblike_article);
         like_part.appendChild(icon_like);
-        section_foot.appendChild(like_part);
 
+        section_foot.appendChild(title_article);
+        section_foot.appendChild(like_part);
         article.appendChild(section_foot);
 
         return (article);
