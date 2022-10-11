@@ -1,6 +1,6 @@
 #contact_modal {
     display: none;
-    
+
 }
 
 .photograph-header {
@@ -102,6 +102,41 @@
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 6;
+
+}
+#modal_photo {
+    display: none;
+}
+
+#modal_photo_into{
+    position: fixed;
+    top: 20px;
+    border-radius: 5px;
+    background-color:white;
+    width: 1253px;
+    height: 984px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+} 
+#close_red{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50px;
+    right: 55px;
+    cursor: pointer;
 
 }
 

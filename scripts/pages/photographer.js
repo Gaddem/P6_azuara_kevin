@@ -23,8 +23,9 @@ async function getMediaPhotographer(id_photographer) {
 
 async function displayMediaPhotographer(mediasPhotographer) {
     const medias_location = document.querySelector(".medias_section");
+    //filtre ici
     mediasPhotographer.forEach((media) => {
-        const mediaModel = mediaFactory(media); 
+        const mediaModel = mediaFactory(media,mediasPhotographer); 
         const userCardDOM = mediaModel.getMediaCardDOM();
         // userCardDOM.addEventListener("click",()=>{window.location.href="photographer.html?id="+photographer.id})
         medias_location.appendChild(userCardDOM);
@@ -52,6 +53,7 @@ async function displayPriceAndLike(tabMedias,price_photographer) {
     price.style.color= "#000000";
     price.style.margin= 0;
 
+    likes.setAttribute("id","total_likes_media");
     likes.textContent = nb_like;
     likes.style.fontSize = "24px";
     likes.style.lineHeight = "31.25px";
@@ -118,14 +120,18 @@ async function displayDataPhotographer(arrayDataInfo) {
 
 }
 
-
 function closeModal() {
     const modal = document.getElementById("contact_modal");
     const overlay = document.getElementById("overlay");
 	modal.style.display = "none";
     overlay.style.display = "none";
 }
-
+function displayModal() {
+    const modal = document.getElementById("contact_modal");
+    const overlay = document.getElementById("overlay");
+	modal.style.display = "block";
+    overlay.style.display = "block";
+}
 
 
 async function init() {
