@@ -23,6 +23,7 @@ async function getMediaPhotographer(id_photographer) {
 
 async function displayMediaPhotographer(mediasPhotographer) {
     const medias_location = document.querySelector(".medias_section");
+
     //filtre ici
     mediasPhotographer.forEach((media) => {
         const mediaModel = mediaFactory(media,mediasPhotographer); 
@@ -141,6 +142,9 @@ async function init() {
     await getInfosPhotographer(id_photographer).then(async(resPhotographer)=>{
         await displayDataPhotographer(resPhotographer);
         await getMediaPhotographer(id_photographer).then(async(resMedia)=>{
+            var select = document.getElementById('selectInputFilters');
+            var value = select.options[select.selectedIndex].value;
+            console.log(value);
             const arrayOfMediaMoreName = resMedia.map((mediaRecup)=>({ ...mediaRecup, namePhotographer : resPhotographer.name})) //Attribution du nom du Photographe afin de retourver son dossier de photo par la suite
             await displayMediaPhotographer(arrayOfMediaMoreName);
             await displayPriceAndLike(arrayOfMediaMoreName,resPhotographer.price);
@@ -151,5 +155,17 @@ async function init() {
    
     
 };
+
+
+
+    //   document.getElementById("date").addEventListener("click", function(event) {
+    //     console.log("Désolé ! preventDefault() ne vous laissera pas cocher ceci.");
+    
+    //   }, false);
+    //   document.getElementById("title").addEventListener("click", function(event) {
+    //     console.log("Désolé ! preventDefault() ne vous laissera pas cocher ceci.");
+    
+    //   }, false);
+
 
 init();

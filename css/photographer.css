@@ -17,7 +17,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 30px;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .medias_section article{
     display: flex;
@@ -38,6 +38,23 @@
     flex-direction: row;
     align-items: center;
 
+}
+.filter{
+    margin: 0 100px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+#selectInputFilters{
+    height: 69px;
+    width: 170px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23.44px;
+    color: white;
+    border-radius: 5px;
+    background-color: #911C1C;
+    margin-left: 20px;
 }
 
 .title_filter{

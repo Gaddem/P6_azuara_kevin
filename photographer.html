@@ -21,9 +21,14 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         <div class="photograph_photo"></div>
       </div>
-      <div class="filter">
+      <section class="filter">
         <h4 class="title_filter">Trier Par</h4>
-      </div>
+        <select name="filters" id="selectInputFilters">
+          <option value="pop">Popularité</option>
+          <option value="date">Date</option>
+          <option value="title">Titre</option>
+      </select>
+      </section>
      <script src="/scripts/utils/contactForm.js"></script>
 
       <section class="medias_section">
@@ -31,6 +36,7 @@
       </section>
     </main>
     <div id="modal_photo">
+      <div class="placeItem"></div>
       <div id="modal_photo_into">
         
       </div>

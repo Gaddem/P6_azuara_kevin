@@ -1,6 +1,6 @@
 function mediaFactory(data,arrayComplete) {
     const { id, photographerId, title, image, likes, date, price,namePhotographer,video} = data;
-
+    // let newIdVariable = "";
     function TakeGoodName(namePhotographer){
         let firstName = namePhotographer.split(' ')[0];
         console.log(firstName);
@@ -49,31 +49,78 @@ function mediaFactory(data,arrayComplete) {
         const modal = document.getElementById("modal_photo");
         const parent  = document.getElementById("modal_photo_into");
         const icon_close = document.createElement('img');
-        const titles = document.createElement("h1");
-        titles.style.fontWeight =400;
-        titles.style.fontSize = "24px";
-        titles.style.lineHeight = 3;
-        titles.style.margin = 0;
-        // title.style.Al
-        titles.textContent = title_media;
+        
+
+       
         icon_close.setAttribute("id","close_red");
         icon_close.setAttribute("onclick","closeModalPhoto()");
-        icon_close.setAttribute("src","assets/icons/close_red.svg")
+        icon_close.setAttribute("src","assets/icons/close_red.svg");
         DisplayArrow(id,"left");
-        DisplayContentMedia(id);
+        DisplayContentMedia(id,title_media);
         DisplayArrow(id,"right");
         modal.style.display ="block";
         overlay.style.display = "block";
         parent.appendChild(icon_close);
-        parent.appendChild(titles);
 
         // console.log(TakeGoodName(namePhotographer))  
     }
-    
+
+
+    function SwitchMedia(id,action){
+        // console.log("iddddddddddddddddd",id);
+        if(action){
+            let lengthOfArray = arrayComplete.length;
+            const placeMedia  = document.querySelector(".placeItem");
+            const indexOfMediaNow = arrayComplete.findIndex(object => {return object.id === id;});
+            if(action=="more"){
+                if(indexOfMediaNow+1 == lengthOfArray){
+                    let newMediaReplace = arrayComplete[0];
+                    console.log(1);
+                    placeMedia.id = newMediaReplace.id;
+                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
+                    // newIdVariable = newMediaReplace.id;
+
+                }else{
+                    let more_index = indexOfMediaNow +1
+                    let newMediaReplace = arrayComplete[more_index];
+                    console.log(newMediaReplace);
+                    placeMedia.id = newMediaReplace.id;
+                    console.log(2);
+                    
+                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
+              
+                    // newIdVariable = newMediaReplace.id;
+
+                }
+            }else{
+                if(indexOfMediaNow == 0){
+                    let newMediaReplace = arrayComplete[lengthOfArray-1];
+                    console.log(newMediaReplace);
+                    placeMedia.id = newMediaReplace.id;
+                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
+                   
+
+                    // newIdVariable = newMediaReplace.id;
+                }else{
+                    let less_index = indexOfMediaNow -1;
+                    let newMediaReplace = arrayComplete[less_index];
+                    console.log(newMediaReplace);
+                    placeMedia.id = newMediaReplace.id;
+                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
+                 
+
+                    // newIdVariable = newMediaReplace.id;
+
+                }
+            }
+        }
+    }
 
     
     function DisplayArrow (id,type) {
+        // console.log(newIdVariable);
         // const contentMid  = media_select.image ? document.createElement( 'img' ) :  document.createElement( 'video' );
+        let idTochange = document.querySelector(".placeItem");
         const parent  = document.getElementById("modal_photo_into");
         const arrowRight = document.createElement('img');
         const arrowLeft = document.createElement('img');
@@ -84,10 +131,13 @@ function mediaFactory(data,arrayComplete) {
             arrowLeft.style.cursor = "pointer";
             arrowLeft.style.position ="absolute";
             arrowLeft.style.left =0;
-
+            arrowRight.setAttribute("onClick","");
+            arrowLeft.onclick = function() { SwitchMedia(idTochange.id,"less"); };  
             parent.appendChild(arrowLeft);
         }else{
             arrowRight.setAttribute("src","../assets/icons/left-arrow.svg");
+            arrowRight.setAttribute("onClick","");
+            arrowRight.onclick = function() { SwitchMedia(idTochange.id,"more"); };  
             arrowRight.style.width = "48px";
             arrowRight.style.height = "29.64px";
             arrowRight.style.cursor = "pointer";
@@ -102,10 +152,30 @@ function mediaFactory(data,arrayComplete) {
     
 
     }
-    function DisplayContentMedia (id) {
+    function DisplayContentMedia (id,title_media,already) {
+        if(already){
+            console.log(already);
+            const contentNowToTrash = document.getElementById("toConsom");
+            contentNowToTrash.innerHTML="";
+        }
         let media_select_array = arrayComplete.filter(element => element.id === id);
         let media_select = media_select_array[0];
         const modal_into = document.getElementById("modal_photo_into");
+
+        const mediaAndInfo =document.createElement( 'section' );
+        const titles = document.createElement("h1");
+
+        mediaAndInfo.setAttribute("id","toConsom")
+        mediaAndInfo.style.display ="flex";
+        mediaAndInfo.style.flexDirection="column";
+        mediaAndInfo.style.justifyContent="flex-start";
+
+        titles.style.fontWeight =400;
+        titles.style.fontSize = "24px";
+        titles.style.lineHeight = 3;
+        titles.style.margin = 0;
+ 
+        titles.textContent = title_media;
 
         const content =media_select.image ? document.createElement( 'img' ) :  document.createElement( 'video' );
         content.setAttribute("id","mediaMid");
@@ -115,7 +185,6 @@ function mediaFactory(data,arrayComplete) {
             src_video.setAttribute("src",` ../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
             src_video.setAttribute("type","video/mp4");
             content.setAttribute("controls","");
-
         }else{
             content.setAttribute("src",`../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`)
         }
@@ -125,8 +194,10 @@ function mediaFactory(data,arrayComplete) {
 
 
         content.style.borderRadius ="5px";
+        mediaAndInfo.appendChild(content);
+        mediaAndInfo.appendChild(titles);
 
-        modal_into.appendChild(content);
+        modal_into.appendChild(mediaAndInfo);
     }
 
     function getMediaCardDOM() {
@@ -134,7 +205,7 @@ function mediaFactory(data,arrayComplete) {
     if(image || video){
         const article = document.createElement( 'article' );
         article.setAttribute("id", id);
-        const type =image ?"image":"video"
+        const type =image ?"image":"video";
         switch (type) {
             case "image":
                 const link_image = document.createElement( 'div' );
@@ -151,6 +222,9 @@ function mediaFactory(data,arrayComplete) {
                 break;
             case "video":
                 const link_video = document.createElement( 'div' );
+                // if(newIdVariable.length>0){
+                //     idNewMedia = newIdVariable;
+                // }
                 link_video.onclick = function() { openModalPhoto(id,title) }; 
                 const video = document.createElement( 'video' );
                 const src_video = document.createElement( 'source' );
