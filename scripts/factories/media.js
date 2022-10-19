@@ -43,21 +43,25 @@ function mediaFactory(data,arrayComplete) {
     const picture = `../assets/photographers/${TakeGoodName(namePhotographer)}/${image||video}`;
 
 
+  
 
     function openModalPhoto(id,title_media) {
         const overlay = document.getElementById("overlay");
         const modal = document.getElementById("modal_photo");
         const parent  = document.getElementById("modal_photo_into");
         const icon_close = document.createElement('img');
+        const placeMedia  = document.querySelector(".placeItem");
+        placeMedia.setAttribute("id",id);
         
 
-       
+    //    console.log("placeMedia.id",placeMedia.id);
         icon_close.setAttribute("id","close_red");
         icon_close.setAttribute("onclick","closeModalPhoto()");
         icon_close.setAttribute("src","assets/icons/close_red.svg");
-        DisplayArrow(id,"left");
-        DisplayContentMedia(id,title_media);
-        DisplayArrow(id,"right");
+        DisplayArrow(placeMedia.id,"left");
+        DisplayContentMedia(placeMedia.id,title_media);
+        DisplayArrow(placeMedia.id,"right");
+        // ATTRIBUTION_ID(placeMedia.id);
         modal.style.display ="block";
         overlay.style.display = "block";
         parent.appendChild(icon_close);
@@ -65,65 +69,19 @@ function mediaFactory(data,arrayComplete) {
         // console.log(TakeGoodName(namePhotographer))  
     }
 
-
-    function SwitchMedia(id,action){
-        // console.log("iddddddddddddddddd",id);
-        if(action){
-            let lengthOfArray = arrayComplete.length;
-            const placeMedia  = document.querySelector(".placeItem");
-            const indexOfMediaNow = arrayComplete.findIndex(object => {return object.id === id;});
-            if(action=="more"){
-                if(indexOfMediaNow+1 == lengthOfArray){
-                    let newMediaReplace = arrayComplete[0];
-                    console.log(1);
-                    placeMedia.id = newMediaReplace.id;
-                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
-                    // newIdVariable = newMediaReplace.id;
-
-                }else{
-                    let more_index = indexOfMediaNow +1
-                    let newMediaReplace = arrayComplete[more_index];
-                    console.log(newMediaReplace);
-                    placeMedia.id = newMediaReplace.id;
-                    console.log(2);
-                    
-                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
-              
-                    // newIdVariable = newMediaReplace.id;
-
-                }
-            }else{
-                if(indexOfMediaNow == 0){
-                    let newMediaReplace = arrayComplete[lengthOfArray-1];
-                    console.log(newMediaReplace);
-                    placeMedia.id = newMediaReplace.id;
-                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
-                   
-
-                    // newIdVariable = newMediaReplace.id;
-                }else{
-                    let less_index = indexOfMediaNow -1;
-                    let newMediaReplace = arrayComplete[less_index];
-                    console.log(newMediaReplace);
-                    placeMedia.id = newMediaReplace.id;
-                    DisplayContentMedia(newMediaReplace.id,newMediaReplace.title,true);
-                 
-
-                    // newIdVariable = newMediaReplace.id;
-
-                }
-            }
-        }
-    }
-
     
     function DisplayArrow (id,type) {
-        // console.log(newIdVariable);
-        // const contentMid  = media_select.image ? document.createElement( 'img' ) :  document.createElement( 'video' );
-        let idTochange = document.querySelector(".placeItem");
+
         const parent  = document.getElementById("modal_photo_into");
         const arrowRight = document.createElement('img');
         const arrowLeft = document.createElement('img');
+        arrowRight.setAttribute("id",id);
+        arrowLeft.setAttribute("id",id);
+        arrowRight.setAttribute("class","right");
+        arrowLeft.setAttribute("class","left");
+        const placeMedia  = document.querySelector(".placeItem");
+
+
         if(type==="left"){
             arrowLeft.setAttribute("src","../assets/icons/left-arrow.svg");
             arrowLeft.style.width = "48px";
@@ -131,19 +89,20 @@ function mediaFactory(data,arrayComplete) {
             arrowLeft.style.cursor = "pointer";
             arrowLeft.style.position ="absolute";
             arrowLeft.style.left =0;
-            arrowRight.setAttribute("onClick","");
-            arrowLeft.onclick = function() { SwitchMedia(idTochange.id,"less"); };  
+            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(id,"less");
+            arrowLeft.onclick = function() {  DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess); };  
             parent.appendChild(arrowLeft);
         }else{
             arrowRight.setAttribute("src","../assets/icons/left-arrow.svg");
             arrowRight.setAttribute("onClick","");
-            arrowRight.onclick = function() { SwitchMedia(idTochange.id,"more"); };  
             arrowRight.style.width = "48px";
             arrowRight.style.height = "29.64px";
             arrowRight.style.cursor = "pointer";
             arrowRight.style.position ="absolute";
             arrowRight.style.right =0;
-
+            arrowRight.setAttribute("class","right");
+            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(id,"more");
+            arrowRight.onclick = function() {  DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess);};  
             arrowRight.style.transform = "rotate(-180deg)";
             parent.appendChild(arrowRight);
 
@@ -152,13 +111,38 @@ function mediaFactory(data,arrayComplete) {
     
 
     }
-    function DisplayContentMedia (id,title_media,already) {
+    function ATTRIBUTION_ID (id,action) {
+        console.log("id en visuel",id);
+        const placeActuel = arrayComplete.findIndex(object => {return object.id == id;});
+        if(action=="more"){
+            const newIndex = placeActuel+1;
+            const newMediaIsHere = arrayComplete[newIndex];
+            const NEXT_MEDIA =  arrayComplete[newIndex+1];
+            const BEFORE_MEDIA =  arrayComplete[newIndex];
+            console.log("id après",NEXT_MEDIA.id);
+            console.log("id avant",BEFORE_MEDIA.id)
+            return {id:newMediaIsHere.id,title:newMediaIsHere.title,idMore:NEXT_MEDIA,idLess:BEFORE_MEDIA}
+        }else{
+            const newIndex = placeActuel-1;
+            const newMediaIsHere = arrayComplete[newIndex];
+            const NEXT_MEDIA =  arrayComplete[newIndex];
+            const BEFORE_MEDIA =  arrayComplete[newIndex-1];
+            return {id:newMediaIsHere.id,title:newMediaIsHere.title,idMore:NEXT_MEDIA,idLess:BEFORE_MEDIA}
+        }
+    }
+    function DisplayContentMedia (id,title_media,already,moreID,lessID) {
+        const placeMedia  = document.querySelector(".placeItem");
+        placeMedia.setAttribute("id",id)
+  
         if(already){
-            console.log(already);
+            console.log("isAlready  ");
             const contentNowToTrash = document.getElementById("toConsom");
             contentNowToTrash.innerHTML="";
+            contentNowToTrash.remove();
+            ATTRIBUTION_ID (id,"more");
+            ATTRIBUTION_ID (id,"less")
         }
-        let media_select_array = arrayComplete.filter(element => element.id === id);
+        let media_select_array = arrayComplete.filter(element => element.id == id);
         let media_select = media_select_array[0];
         const modal_into = document.getElementById("modal_photo_into");
 
@@ -191,8 +175,6 @@ function mediaFactory(data,arrayComplete) {
         content.style.width ="1050px";
         content.style.height ="900px";
         content.style.objectFit="cover";
-
-
         content.style.borderRadius ="5px";
         mediaAndInfo.appendChild(content);
         mediaAndInfo.appendChild(titles);
