@@ -79,9 +79,8 @@ function mediaFactory(data,arrayComplete) {
         arrowLeft.setAttribute("id",id);
         arrowRight.setAttribute("class","right");
         arrowLeft.setAttribute("class","left");
-        let placeMedia  = document.getElementById(id);
-
-
+        let placeMedia  = document.querySelector(".placeItem");
+        console.log("placeMedia",placeMedia);
         if(type==="left"){
             arrowLeft.setAttribute("src","../assets/icons/left-arrow.svg");
             arrowLeft.style.width = "48px";
@@ -90,7 +89,10 @@ function mediaFactory(data,arrayComplete) {
             arrowLeft.style.position ="absolute";
             arrowLeft.style.left =0;
             let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"less");
-            arrowLeft.onclick = function() {  ATTRIBUTION_ID(placeMedia.id,"less");DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess); };  
+            arrowLeft.onclick =function() {
+                let solutions = ATTRIBUTION_ID(placeMedia.id,"less");
+                DisplayContentMedia(solutions.id,solutions.title,true,solutions.idMore,solutions.idLess);
+               };  
             parent.appendChild(arrowLeft);
         }else{
             arrowRight.setAttribute("src","../assets/icons/left-arrow.svg");
@@ -102,7 +104,10 @@ function mediaFactory(data,arrayComplete) {
             arrowRight.style.right =0;
             arrowRight.setAttribute("class","right");
             let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"more");
-            arrowRight.onclick = function() { ATTRIBUTION_ID(placeMedia.id,"more");  DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess);};  
+            arrowRight.onclick = function() {
+                 let solutions = ATTRIBUTION_ID(placeMedia.id,"more");
+                 DisplayContentMedia(solutions.id,solutions.title,true,solutions.idMore,solutions.idLess);
+                };  
             arrowRight.style.transform = "rotate(-180deg)";
             parent.appendChild(arrowRight);
 
@@ -120,21 +125,21 @@ function mediaFactory(data,arrayComplete) {
             let newIndex = placeActuel+1;
             let newMediaIsHere = arrayComplete[newIndex];
 
-            let NEXT_MEDIA =  arrayComplete[newIndex++];
+            let NEXT_MEDIA =  arrayComplete[newIndex];
 
-            let BEFORE_MEDIA =  arrayComplete[placeActuel-1];
+            let BEFORE_MEDIA =  arrayComplete[placeActuel];
 
-            document.getElementById(id).id = newMediaIsHere.id;
+            newIID.setAttribute("id",newMediaIsHere.id)
             return {id:newMediaIsHere.id,title:newMediaIsHere.title,idMore:NEXT_MEDIA.id,idLess:BEFORE_MEDIA.id}
         }else{
             let newIndexLess = placeActuel-1;
             let newMediaIsHereLess = arrayComplete[newIndexLess];
 
-            let NEXT_MEDIA_LESS =  arrayComplete[newIndexLess--];
+            let NEXT_MEDIA_LESS =  arrayComplete[newIndexLess];
 
             let BEFORE_MEDIA_LESS =  arrayComplete[placeActuel];
 
-            document.getElementById(id).id = newMediaIsHereLess.id;
+            newIID.setAttribute("id",newMediaIsHereLess.id)
             return {id:newMediaIsHereLess.id,title:newMediaIsHereLess.title,idMore:NEXT_MEDIA_LESS.id,idLess:BEFORE_MEDIA_LESS.id}
         }
     }
@@ -148,6 +153,8 @@ function mediaFactory(data,arrayComplete) {
             contentNowToTrash.remove();
             let arrowRight = document.querySelector(".right");
             arrowRight.id=moreID;
+            let arrowLeft = document.querySelector(".left");
+            arrowLeft.id=lessID;
             // console.log(arrowRight);
             // 
             // ATTRIBUTION_ID (id,"less")
