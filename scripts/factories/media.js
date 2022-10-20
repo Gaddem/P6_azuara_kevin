@@ -88,7 +88,7 @@ function mediaFactory(data,arrayComplete) {
             arrowLeft.style.cursor = "pointer";
             arrowLeft.style.position ="absolute";
             arrowLeft.style.left =0;
-            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"less");
+            // let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"less");
             arrowLeft.onclick =function() {
                 let solutions = ATTRIBUTION_ID(placeMedia.id,"less");
                 DisplayContentMedia(solutions.id,solutions.title,true,solutions.idMore,solutions.idLess);
@@ -124,7 +124,6 @@ function mediaFactory(data,arrayComplete) {
         if(action=="more"){
             let newIndex = placeActuel+1;
             let newMediaIsHere = arrayComplete[newIndex];
-
             let NEXT_MEDIA =  arrayComplete[newIndex];
 
             let BEFORE_MEDIA =  arrayComplete[placeActuel];
@@ -147,17 +146,14 @@ function mediaFactory(data,arrayComplete) {
     function DisplayContentMedia (id,title_media,already,moreID,lessID) {
         console.log("id entrant pour media",id);
         if(already){
-            // console.log("isAlready  ");
             const contentNowToTrash = document.getElementById("toConsom");
             contentNowToTrash.innerHTML="";
             contentNowToTrash.remove();
             let arrowRight = document.querySelector(".right");
-            arrowRight.id=moreID;
+            arrowRight.setAttribute("id",moreID);
             let arrowLeft = document.querySelector(".left");
-            arrowLeft.id=lessID;
-            // console.log(arrowRight);
-            // 
-            // ATTRIBUTION_ID (id,"less")
+            arrowLeft.setAttribute("id",lessID);
+
         }
         let media_select_array = arrayComplete.filter(element => element.id == id);
         let media_select = media_select_array[0];
