@@ -3,7 +3,7 @@ function mediaFactory(data,arrayComplete) {
     // let newIdVariable = "";
     function TakeGoodName(namePhotographer){
         let firstName = namePhotographer.split(' ')[0];
-        console.log(firstName);
+        // console.log(firstName);
         if(firstName.includes("-")){
             let placeTiret = firstName.indexOf("-");
             let lengthString = firstName.length;
@@ -59,7 +59,7 @@ function mediaFactory(data,arrayComplete) {
         icon_close.setAttribute("onclick","closeModalPhoto()");
         icon_close.setAttribute("src","assets/icons/close_red.svg");
         DisplayArrow(placeMedia.id,"left");
-        DisplayContentMedia(placeMedia.id,title_media);
+        DisplayContentMedia(placeMedia.id,title_media,false);
         DisplayArrow(placeMedia.id,"right");
         // ATTRIBUTION_ID(placeMedia.id);
         modal.style.display ="block";
@@ -79,7 +79,7 @@ function mediaFactory(data,arrayComplete) {
         arrowLeft.setAttribute("id",id);
         arrowRight.setAttribute("class","right");
         arrowLeft.setAttribute("class","left");
-        const placeMedia  = document.querySelector(".placeItem");
+        let placeMedia  = document.getElementById(id);
 
 
         if(type==="left"){
@@ -89,8 +89,8 @@ function mediaFactory(data,arrayComplete) {
             arrowLeft.style.cursor = "pointer";
             arrowLeft.style.position ="absolute";
             arrowLeft.style.left =0;
-            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(id,"less");
-            arrowLeft.onclick = function() {  DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess); };  
+            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"less");
+            arrowLeft.onclick = function() {  ATTRIBUTION_ID(placeMedia.id,"less");DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess); };  
             parent.appendChild(arrowLeft);
         }else{
             arrowRight.setAttribute("src","../assets/icons/left-arrow.svg");
@@ -101,8 +101,8 @@ function mediaFactory(data,arrayComplete) {
             arrowRight.style.position ="absolute";
             arrowRight.style.right =0;
             arrowRight.setAttribute("class","right");
-            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(id,"more");
-            arrowRight.onclick = function() {  DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess);};  
+            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"more");
+            arrowRight.onclick = function() { ATTRIBUTION_ID(placeMedia.id,"more");  DisplayContentMedia(SEARCH_NEW_ATTRIBUTION.id,SEARCH_NEW_ATTRIBUTION.title,true,SEARCH_NEW_ATTRIBUTION.idMore,SEARCH_NEW_ATTRIBUTION.idLess);};  
             arrowRight.style.transform = "rotate(-180deg)";
             parent.appendChild(arrowRight);
 
@@ -112,35 +112,45 @@ function mediaFactory(data,arrayComplete) {
 
     }
     function ATTRIBUTION_ID (id,action) {
-        console.log("id en visuel",id);
-        const placeActuel = arrayComplete.findIndex(object => {return object.id == id;});
+        // console.log("idzezezee",id);
+        let newIID = document.getElementById(id);
+        // console.log("newIID");
+        let placeActuel = arrayComplete.findIndex(object => {return object.id == newIID.id});
         if(action=="more"){
-            const newIndex = placeActuel+1;
-            const newMediaIsHere = arrayComplete[newIndex];
-            const NEXT_MEDIA =  arrayComplete[newIndex+1];
-            const BEFORE_MEDIA =  arrayComplete[newIndex];
-            console.log("id après",NEXT_MEDIA.id);
-            console.log("id avant",BEFORE_MEDIA.id)
-            return {id:newMediaIsHere.id,title:newMediaIsHere.title,idMore:NEXT_MEDIA,idLess:BEFORE_MEDIA}
+            let newIndex = placeActuel+1;
+            let newMediaIsHere = arrayComplete[newIndex];
+
+            let NEXT_MEDIA =  arrayComplete[newIndex++];
+
+            let BEFORE_MEDIA =  arrayComplete[placeActuel-1];
+
+            document.getElementById(id).id = newMediaIsHere.id;
+            return {id:newMediaIsHere.id,title:newMediaIsHere.title,idMore:NEXT_MEDIA.id,idLess:BEFORE_MEDIA.id}
         }else{
-            const newIndex = placeActuel-1;
-            const newMediaIsHere = arrayComplete[newIndex];
-            const NEXT_MEDIA =  arrayComplete[newIndex];
-            const BEFORE_MEDIA =  arrayComplete[newIndex-1];
-            return {id:newMediaIsHere.id,title:newMediaIsHere.title,idMore:NEXT_MEDIA,idLess:BEFORE_MEDIA}
+            let newIndexLess = placeActuel-1;
+            let newMediaIsHereLess = arrayComplete[newIndexLess];
+
+            let NEXT_MEDIA_LESS =  arrayComplete[newIndexLess--];
+
+            let BEFORE_MEDIA_LESS =  arrayComplete[placeActuel];
+
+            document.getElementById(id).id = newMediaIsHereLess.id;
+            return {id:newMediaIsHereLess.id,title:newMediaIsHereLess.title,idMore:NEXT_MEDIA_LESS.id,idLess:BEFORE_MEDIA_LESS.id}
         }
     }
+
     function DisplayContentMedia (id,title_media,already,moreID,lessID) {
-        const placeMedia  = document.querySelector(".placeItem");
-        placeMedia.setAttribute("id",id)
-  
+        console.log("id entrant pour media",id);
         if(already){
-            console.log("isAlready  ");
+            // console.log("isAlready  ");
             const contentNowToTrash = document.getElementById("toConsom");
             contentNowToTrash.innerHTML="";
             contentNowToTrash.remove();
-            ATTRIBUTION_ID (id,"more");
-            ATTRIBUTION_ID (id,"less")
+            let arrowRight = document.querySelector(".right");
+            arrowRight.id=moreID;
+            // console.log(arrowRight);
+            // 
+            // ATTRIBUTION_ID (id,"less")
         }
         let media_select_array = arrayComplete.filter(element => element.id == id);
         let media_select = media_select_array[0];
