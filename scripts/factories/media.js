@@ -103,7 +103,7 @@ function mediaFactory(data,arrayComplete) {
             arrowRight.style.position ="absolute";
             arrowRight.style.right =0;
             arrowRight.setAttribute("class","right");
-            let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"more");
+            // let SEARCH_NEW_ATTRIBUTION = ATTRIBUTION_ID(placeMedia.id,"more");
             arrowRight.onclick = function() {
                  let solutions = ATTRIBUTION_ID(placeMedia.id,"more");
                  DisplayContentMedia(solutions.id,solutions.title,true,solutions.idMore,solutions.idLess);
