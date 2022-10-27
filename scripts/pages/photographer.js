@@ -1,5 +1,3 @@
-//Mettre le code JavaScript lié à la page photographer.html
-
 async function getInfosPhotographer(id_photographer) {
         const test = await fetch('../../data/photographers.json')
         .then((response) => response.json())
@@ -21,14 +19,59 @@ async function getMediaPhotographer(id_photographer) {
     return test;
 }
 
-async function displayMediaPhotographer(mediasPhotographer) {
-    const medias_location = document.querySelector(".medias_section");
+async function FILTER_MEDIA(type,mediasPhotographer){//Filtre Media
+    let newArray= [];
+    switch (type) {
+        case "pop":
+            newArray = mediasPhotographer.sort((a, b) => {
+                let nbA = a.likes,nbB = b.likes;
+                return  nbB - nbA;
+            });
+            break;
+        case "date":
+            newArray = mediasPhotographer.sort((a, b) => {
+                let da = new Date(a.date),db = new Date(b.date);
+                return da - db;
+            });
+        break;
+        case "title":
+            newArray =  mediasPhotographer.sort((a, b) => {
+                let fa = a.title.toLowerCase();
+                let fb = b.title.toLowerCase();
+                if (fa < fb) {return -1;}
+                if (fa > fb) {return 1;}
+                return 0;
+            });
+        break;
+        default:
+            mediasPhotographer.sort((a, b) => {
+                let nbA = a.likes,nbB = b.likes;
+                return nbA - nbB;
+             });
+        break;
+    }
+    displayMediaPhotographer(newArray,true);
+}
 
-    //filtre ici
+var selectElem = document.getElementById('selectInputFilters');
+let ArrayMedia = [];
+// Quand une nouvelle <option> est selectionnée
+selectElem.addEventListener('change', function() {
+  var valueOfChange = selectElem.value;
+  FILTER_MEDIA(valueOfChange,ArrayMedia )
+ console.log(valueOfChange);
+})
+
+
+async function displayMediaPhotographer(mediasPhotographer,already) {
+    const medias_location = document.querySelector(".medias_section");
+    if(already){
+        medias_location.innerHTML="";   
+    }
+
     mediasPhotographer.forEach((media) => {
         const mediaModel = mediaFactory(media,mediasPhotographer); 
         const userCardDOM = mediaModel.getMediaCardDOM();
-        // userCardDOM.addEventListener("click",()=>{window.location.href="photographer.html?id="+photographer.id})
         medias_location.appendChild(userCardDOM);
     });
 
@@ -142,10 +185,9 @@ async function init() {
     await getInfosPhotographer(id_photographer).then(async(resPhotographer)=>{
         await displayDataPhotographer(resPhotographer);
         await getMediaPhotographer(id_photographer).then(async(resMedia)=>{
-            var select = document.getElementById('selectInputFilters');
-            var value = select.options[select.selectedIndex].value;
-            console.log(value);
-            const arrayOfMediaMoreName = resMedia.map((mediaRecup)=>({ ...mediaRecup, namePhotographer : resPhotographer.name})) //Attribution du nom du Photographe afin de retourver son dossier de photo par la suite
+            const arrayOfMediaMoreName = resMedia.map((mediaRecup)=>({ ...mediaRecup, namePhotographer : resPhotographer.name})) 
+            ArrayMedia = arrayOfMediaMoreName
+            //Attribution du nom du Photographe afin de retourver son dossier de photo par la suite
             await displayMediaPhotographer(arrayOfMediaMoreName);
             await displayPriceAndLike(arrayOfMediaMoreName,resPhotographer.price);
 
@@ -155,17 +197,6 @@ async function init() {
    
     
 };
-
-
-
-    //   document.getElementById("date").addEventListener("click", function(event) {
-    //     console.log("Désolé ! preventDefault() ne vous laissera pas cocher ceci.");
-    
-    //   }, false);
-    //   document.getElementById("title").addEventListener("click", function(event) {
-    //     console.log("Désolé ! preventDefault() ne vous laissera pas cocher ceci.");
-    
-    //   }, false);
 
 
 init();
