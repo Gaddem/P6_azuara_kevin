@@ -222,6 +222,7 @@ async function init() {
             const nameContact =document.getElementById("nameProfilForContact") ;
             nameContact.textContent = resPhotographer.name;
             await displayMediaPhotographer(arrayOfMediaMoreName);
+            FILTER_MEDIA("pop",arrayOfMediaMoreName);
             await displayPriceAndLike(arrayOfMediaMoreName,resPhotographer.price);
 
     

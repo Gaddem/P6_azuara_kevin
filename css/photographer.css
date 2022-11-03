@@ -73,12 +73,14 @@ select {
     padding-right: 2rem;
   }
 
+
+
 select:focus {
     background-image: url("../assets/icons/up-arrow.svg");
 }
-option{
+/* option{
     height: 69px;
-}
+} */
 
 .title_filter{
     font-weight: 700;
@@ -158,15 +160,10 @@ option{
 
 #modal_photo_into{
     position: fixed;
-    top: 20px;
     border-radius: 5px;
     background-color:white;
     width: 1253px;
     height: 984px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

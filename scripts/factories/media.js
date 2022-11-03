@@ -236,7 +236,7 @@ function mediaFactory(data,arrayComplete) {
                 video.style.borderRadius = "5px";
                 video.style.objectFit = "cover";
                 video.style.cursor = "pointer";
-
+                video.setAttribute("tabindex","-1");
                 video.appendChild(src_video);
                 link_video.appendChild(video)
                 article.appendChild(link_video);
