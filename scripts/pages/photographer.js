@@ -219,6 +219,8 @@ async function init() {
             const arrayOfMediaMoreName = resMedia.map((mediaRecup)=>({ ...mediaRecup, namePhotographer : resPhotographer.name})) 
             ArrayMedia = arrayOfMediaMoreName
             //Attribution du nom du Photographe afin de retourver son dossier de photo par la suite
+            const nameContact =document.getElementById("nameProfilForContact") ;
+            nameContact.textContent = resPhotographer.name;
             await displayMediaPhotographer(arrayOfMediaMoreName);
             await displayPriceAndLike(arrayOfMediaMoreName,resPhotographer.price);
 

@@ -111,7 +111,9 @@ option{
     font-weight: 700;
     line-height: 23px;
     color: white;
-    padding: 11px;
+    margin: 0;
+    padding: 0;
+    /* padding: 11px; */
     width: 170px;
     height: 70px;
     border: none;
@@ -136,7 +138,9 @@ option{
     top: 20px;
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
+    /* width: 50%; */
+    width: 669px;
+    height: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -197,6 +201,13 @@ option{
     font-size: 64px;
     font-weight: normal;
     text-align: center;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.textuel_content{
+    margin-top: 75px;
 }
 
 form {
@@ -204,6 +215,7 @@ form {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-start;
 }
 
 form label {

@@ -11,6 +11,7 @@ function mediaFactory(data,arrayComplete) {
         }
         return firstName
     }
+    
 
     //fonction pour like ou disilike le media
     function LIKE_MEDIA(){
@@ -50,9 +51,10 @@ function mediaFactory(data,arrayComplete) {
 
         const indexMediaInArray = arrayComplete.findIndex(object => {return object.id == id;});
         placeMedia.setAttribute("id",indexMediaInArray);
-
         icon_close.setAttribute("id","close_red");
-        icon_close.setAttribute("onclick","closeModalPhoto()");
+        icon_close.onclick=function() {
+            closeModalPhoto() ;
+        }
         icon_close.setAttribute("src","assets/icons/close_red.svg");
         icon_close.setAttribute("alt","Close dialog");
         icon_close.setAttribute("ari-label","Close dialog");
@@ -65,6 +67,17 @@ function mediaFactory(data,arrayComplete) {
         overlay.style.display = "block";
         parent.appendChild(icon_close);
     }
+    function closeModalPhoto() {
+        const overlay = document.getElementById("overlay");
+        const modal = document.getElementById("modal_photo");
+        const modalInto = document.getElementById("modal_photo_into");
+        modalInto.setAttribute("aria-hidden","true");
+        modal.style.display ="none";
+        overlay.style.display = "none";
+        modalInto.innerHTML = '';
+        // console.log(TakeGoodName(namePhotographer))  
+    }
+    
 
     //Affichage d'une fleche
     function DisplayArrow (type) {
