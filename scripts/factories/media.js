@@ -62,12 +62,9 @@ function mediaFactory(data,arrayComplete) {
 
     //Affichage d'une fleche
     function DisplayArrow (type) {
-
         const parent  = document.getElementById("modal_photo_into");
         const arrowRight = document.createElement('img');
         const arrowLeft = document.createElement('img');
-        arrowRight.setAttribute("class","right");
-        arrowLeft.setAttribute("class","left");
         if(type==="left"){
             arrowLeft.setAttribute("src","../assets/icons/left-arrow.svg");
             arrowLeft.style.width = "48px";
@@ -79,7 +76,7 @@ function mediaFactory(data,arrayComplete) {
             arrowLeft.onclick =function() {
                 let placeMedia  = document.querySelector(".placeItem");
                 let newIndex = parseInt(placeMedia.id)-1;
-                if(newIndex==(-1)){
+                if(newIndex===(-1)){
                     let lengthArray = arrayComplete.length;
                     let newMediaNext = arrayComplete[lengthArray-1];
                     newIndex = arrayComplete.findIndex(object => {return object.id == newMediaNext.id;});
@@ -104,7 +101,7 @@ function mediaFactory(data,arrayComplete) {
                 let placeMedia  = document.querySelector(".placeItem");
                 let newIndex = parseInt(placeMedia.id)+1;
                 let lengthArray = arrayComplete.length;
-                if(newIndex==lengthArray){
+                if(newIndex===lengthArray){
                     newIndex = 0
                 }
                 let newTitle = arrayComplete[newIndex].title

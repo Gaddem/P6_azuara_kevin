@@ -45,6 +45,7 @@
     flex-direction: row;
     margin-top: 20px;
 }
+
 #selectInputFilters{
     height: 69px;
     width: 170px;
@@ -55,6 +56,25 @@
     border-radius: 5px;
     background-color: #911C1C;
     margin-left: 20px;
+    
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("../assets/icons/down-arrow.svg");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    background-size: 32px;
+    border: 1px solid #dfdfdf;
+    border-radius: 2px;
+    padding: 1rem;
+    padding-right: 2rem;
+  }
+
+select:focus {
+    background-image: url("../assets/icons/up-arrow.svg");
 }
 
 .title_filter{
