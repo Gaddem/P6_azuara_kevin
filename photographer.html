@@ -12,13 +12,13 @@
     </div>
     <header>
       <a href="./index.html">
-        <img src="assets/images/logo.png" class="logo" />
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" role="Image link"/>
       </a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <div class="photograph-header">
       <div class="photograph_txt"></div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
         <div class="photograph_photo"></div>
       </div>
       <section class="filter">
@@ -37,22 +37,22 @@
     </main>
     <div id="modal_photo">
       <div class="placeItem"></div>
-      <div id="modal_photo_into">
+      <div aria-hidden="true" role="dialog" id="modal_photo_into">
         
       </div>
     </div>
     <section id="section_like_price">
     </section>
-    <div id="contact_modal">
+    <div id="contact_modal" aria-hidden="true" role="dialog">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close_white.svg" onclick="closeModal()" />
+          <img src="assets/icons/close_white.svg" alt="icon-close" onclick="closeModal()" />
         </header>
 				<form>
 					<div>
 						<label for="firstname">Prénom</label>
-						<input id="firstname" name="firstname"/>
+						<input id="firstname" name="firstname" />
             <label for="lastname">Nom</label>
 						<input id="lastname" name="lastname"/>
             <label for="mail">Email</label>
@@ -60,7 +60,9 @@
             <label for="message">Votre message</label>
             <textarea id="message" name="message" ></textarea>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <div onclick="closeModal(true)" class="contact_button">
+            Envoyer
+          </div>
 				</form>
 			</div>
 		</div>

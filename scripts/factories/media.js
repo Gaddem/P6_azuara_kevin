@@ -44,6 +44,9 @@ function mediaFactory(data,arrayComplete) {
         const parent  = document.getElementById("modal_photo_into");
         const icon_close = document.createElement('img');
         const placeMedia  = document.querySelector(".placeItem");
+        parent.setAttribute("aria-hidden","false");
+        // parent.focus();
+
 
         const indexMediaInArray = arrayComplete.findIndex(object => {return object.id == id;});
         placeMedia.setAttribute("id",indexMediaInArray);
@@ -51,6 +54,9 @@ function mediaFactory(data,arrayComplete) {
         icon_close.setAttribute("id","close_red");
         icon_close.setAttribute("onclick","closeModalPhoto()");
         icon_close.setAttribute("src","assets/icons/close_red.svg");
+        icon_close.setAttribute("alt","Close dialog");
+        icon_close.setAttribute("ari-label","Close dialog");
+        
 
         DisplayArrow("left");//Creation flèche gauche
         DisplayContentMedia(title_media,false);//Creation media -> première ouverture
@@ -66,7 +72,11 @@ function mediaFactory(data,arrayComplete) {
         const arrowRight = document.createElement('img');
         const arrowLeft = document.createElement('img');
         if(type==="left"){
+            arrowLeft.setAttribute("tabindex","0");
             arrowLeft.setAttribute("src","../assets/icons/left-arrow.svg");
+            arrowLeft.setAttribute("alt","Previous image");
+            arrowLeft.setAttribute("aria-label","Previous image");
+
             arrowLeft.style.width = "48px";
             arrowLeft.style.height = "29.64px";
             arrowLeft.style.cursor = "pointer";
@@ -88,8 +98,11 @@ function mediaFactory(data,arrayComplete) {
                };  
             parent.appendChild(arrowLeft);
         }else{
+            arrowRight.setAttribute("tabindex","0");
             arrowRight.setAttribute("src","../assets/icons/left-arrow.svg");
-            arrowRight.setAttribute("onClick","");
+            arrowRight.setAttribute("alt","Next image");
+            arrowRight.setAttribute("aria-label","Next image");
+            // arrowRight.setAttribute("onClick","");
             arrowRight.style.width = "48px";
             arrowRight.style.height = "29.64px";
             arrowRight.style.cursor = "pointer";
@@ -117,7 +130,7 @@ function mediaFactory(data,arrayComplete) {
 
     }
    
-
+    //Afficher dans un le media sélectionné
     function DisplayContentMedia (title_media,already) {
         const placeMedia  = document.querySelector(".placeItem");
         const id = arrayComplete[placeMedia.id].id
@@ -130,7 +143,7 @@ function mediaFactory(data,arrayComplete) {
         let media_select_array = arrayComplete.filter(element => element.id == id);
         let media_select = media_select_array[0];
         const modal_into = document.getElementById("modal_photo_into");
-
+        modal_into.setAttribute("aria-label","image closeup view")
         const mediaAndInfo =document.createElement( 'section' );//Cette section contient tout le contenu qui doit switcher lorsqu'on change change de média
         mediaAndInfo.setAttribute("id","toConsom")
         mediaAndInfo.style.display ="flex";
@@ -160,6 +173,7 @@ function mediaFactory(data,arrayComplete) {
             content.setAttribute("src",`../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`)
         }
 
+
         
 
         mediaAndInfo.appendChild(content);//Media
@@ -172,6 +186,7 @@ function mediaFactory(data,arrayComplete) {
 
     if(image || video){
         const article = document.createElement( 'article' );
+        article.setAttribute("tabindex","0")
         article.setAttribute("id", id);
         const type =image ?"image":"video";
         switch (type) {
@@ -247,6 +262,7 @@ function mediaFactory(data,arrayComplete) {
 
         const icon_like = document.createElement('img');
         icon_like.setAttribute("src","../assets/icons/heart_red.svg");
+        icon_like.setAttribute("alt","likes")
         icon_like.style.width="17.5px";
         icon_like.style.height="18.35px";
         icon_like.style.marginLeft="4px";

@@ -76,6 +76,9 @@ select {
 select:focus {
     background-image: url("../assets/icons/up-arrow.svg");
 }
+option{
+    height: 69px;
+}
 
 .title_filter{
     font-weight: 700;
@@ -104,13 +107,17 @@ select:focus {
 }
 
 .contact_button {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
     color: white;
     padding: 11px;
     width: 170px;
     height: 70px;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;

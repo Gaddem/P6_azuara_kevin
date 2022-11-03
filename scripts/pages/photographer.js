@@ -164,17 +164,48 @@ async function displayDataPhotographer(arrayDataInfo) {
 
 }
 
-function closeModal() {
+//Close Modal Contact
+function closeModal(finish) {
     const modal = document.getElementById("contact_modal");
+    const main = document.getElementById("main");
+    main.setAttribute("aria-hidden","false");
+    modal.setAttribute("aria-hidden","true");
     const overlay = document.getElementById("overlay");
 	modal.style.display = "none";
     overlay.style.display = "none";
+    if(finish){//Finish => se produit lorsqu'on envoie les données du modal contact
+        const firstName = document.getElementById("firstname").value;
+        const lastName = document.getElementById("lastname").value;
+        const mail = document.getElementById("mail").value;
+        const message = document.getElementById("message").value;
+        let objectLog = {
+            "Prénom":firstName,
+            "Nom":lastName,
+            "Email":mail,
+            "Message":message,
+        }
+        console.log(objectLog);
+    }
+
 }
+//Open Modal Contact
 function displayModal() {
     const modal = document.getElementById("contact_modal");
+    const main = document.getElementById("main");
+    main.setAttribute("aria-hidden","true");
+    modal.setAttribute("aria-hidden","false");
     const overlay = document.getElementById("overlay");
 	modal.style.display = "block";
     overlay.style.display = "block";
+    const firstName = document.getElementById("firstname");
+    const lastName = document.getElementById("lastname");
+    const mail = document.getElementById("mail");
+    const message = document.getElementById("message");
+    //On vide les valeurs des champs du modal de contact
+    firstName.value="";
+    lastName.value="";
+    mail.value="";
+    message.value="";
 }
 
 
