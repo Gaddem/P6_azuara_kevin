@@ -75,13 +75,6 @@ select {
 
 
 
-select:focus {
-    background-image: url("../assets/icons/up-arrow.svg");
-}
-/* option{
-    height: 69px;
-} */
-
 .title_filter{
     font-weight: 700;
     font-size: 18px; 
@@ -242,3 +235,59 @@ form textarea {
     border: none;
     border-radius: 5px;
 }
+
+
+.mainFilter{
+    height: 69px;
+    width: 170px;
+    border-radius: 5px;
+    background-color: #911C1C;
+    margin-left: 20px;
+    position: relative;
+    display: flex;
+}
+
+.chrv{
+    position: absolute;
+    top: 20px;
+    right: 2%;
+}
+.mainFilterTxt{
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23.44px;
+    color: white;
+    width: 80%;
+    align-self: center;
+    margin:0 0 0 12%;
+
+}
+.mainFiltersHide{
+    
+   position: absolute;
+   top: 50px;
+   display: none;
+   flex-direction: column;
+   align-items: center;
+   background-color: #911C1C;
+   width: 100%;
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+
+}
+.mainFiltersHide hr{
+    color: white;
+    width: 90%;
+ }
+ .mainFiltersHide div {
+    color: white;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    height: 45px;
+ }
+ .mainFiltersHide div h3{
+    color: white;
+ }

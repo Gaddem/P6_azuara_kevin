@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye - photographe </title>
+    <title>Fisheye - photographe
+    </title>
   </head>
+
   <body>
-    <div id="overlay">
-    </div>
+    <div id="overlay"></div>
     <header>
       <a href="./index.html">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" role="Image link"/>
@@ -17,67 +19,77 @@
     </header>
     <main id="main" aria-hidden="false">
       <div>
-      <div class="photograph-header">
-      <div class="photograph_txt"></div>
-        <button class="contact_button" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
-        <div class="photograph_photo"></div>
+        <div class="photograph-header">
+          <div class="photograph_txt"></div>
+          <button class="contact_button" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
+          <div class="photograph_photo"></div>
+        </div>
+        <section class="filter">
+          <h4 class="title_filter">Trier Par</h4>
+          <a onclick="openFilter()" class="mainFilter" id="mainFilter">
+            <h3 class="mainFilterTxt" id="filterFirst" data-parent="pop">Popularité</h3>
+            <img class="chrv" src="../assets/icons/down-arrow.svg" alt="chevron">
+            <div class="mainFiltersHide" id="mainFiltersHide">
+              <hr/>
+
+              <div class="filterSecond" id="filterSecond" data-parent="date">
+                <h3 id="Txtfilter1" class="mainFilterTxt">
+                  Date
+                </h3>
+              </div>
+
+              <hr/>
+
+              <div class="filterThird" id="filterThird" data-parent="title">
+                <h3 id="Txtfilter2" class="mainFilterTxt">
+                  Titre
+                </h3>
+              </div>
+
+            </div>
+          </a>
+        </section>
+        <script src="/scripts/utils/contactForm.js"></script>
+        <script src="/scripts/utils/filters.js"></script>
+
+        <section class="medias_section"></section>
+      </main>
+      <div id="modal_photo">
+        <div class="placeItem"></div>
+        <div aria-hidden="true" role="dialog" id="modal_photo_into"></div>
       </div>
-      <section class="filter">
-        <h4 class="title_filter">Trier Par</h4>
-        <select name="filters" id="selectInputFilters">
-          <option  value="pop">Popularité</option>
-          <option value="date">Date</option>
+      <section id="section_like_price"></section>
+      <div id="contact_modal" aria-hidden="true" role="dialog">
+        <div class="modal">
+          <header>
+            <div class="textuel_content">
+              <h2>Contactez-moi</h2>
+              <h2 id="nameProfilForContact"></h2>
+            </div>
 
-          <hr >
-
-          <option value="title">Titre</option>
-      </select>
-      </section>
-     <script src="/scripts/utils/contactForm.js"></script>
-
-      <section class="medias_section">
-
-      </section>
-    </main>
-    <div id="modal_photo">
-      <div class="placeItem"></div>
-      <div aria-hidden="true" role="dialog" id="modal_photo_into">
-        
+            <img src="assets/icons/close_white.svg" alt="icon-close" onclick="closeModal()"/>
+          </header>
+          <form>
+            <div>
+              <label for="firstname">Prénom</label>
+              <input id="firstname" name="firstname"/>
+              <label for="lastname">Nom</label>
+              <input id="lastname" name="lastname"/>
+              <label for="mail">Email</label>
+              <input id="mail" name="mail"/>
+              <label for="message">Votre message</label>
+              <textarea id="message" name="message"></textarea>
+            </div>
+            <div onclick="closeModal(true)" class="contact_button">
+              Envoyer
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-    <section id="section_like_price">
-    </section>
-    <div id="contact_modal" aria-hidden="true" role="dialog">
-			<div class="modal">
-				<header>
-          <div class="textuel_content">
-            <h2>Contactez-moi</h2>
-            <h2 id="nameProfilForContact"></h2>
-          </div>
-        
-          <img src="assets/icons/close_white.svg" alt="icon-close" onclick="closeModal()" />
-        </header>
-				<form>
-					<div>
-						<label for="firstname">Prénom</label>
-						<input id="firstname" name="firstname" />
-            <label for="lastname">Nom</label>
-						<input id="lastname" name="lastname"/>
-            <label for="mail">Email</label>
-						<input id="mail" name="mail"/>
-            <label for="message">Votre message</label>
-            <textarea id="message" name="message" ></textarea>
-					</div>
-          <div onclick="closeModal(true)" class="contact_button">
-            Envoyer
-          </div>
-				</form>
-			</div>
-		</div>
-    
-  </body>
-</html>
 
+    </body>
 
-<script src="/scripts/factories/media.js"></script>
-<script src="/scripts/pages/photographer.js"></script>
+  </html>
+
+  <script src="/scripts/factories/media.js"></script>
+  <script src="/scripts/pages/photographer.js"></script>
