@@ -228,6 +228,12 @@ function mediaFactory(data, arrayComplete) {
           link_image.onclick = function () {
             openModalPhoto(id, title);
           };
+          article.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.key === 'Enter') {
+                link_image.click();
+                }
+            });
           const img = document.createElement("img");
 
           img.setAttribute("src", picture);
@@ -250,6 +256,12 @@ function mediaFactory(data, arrayComplete) {
           link_video.onclick = function () {
             openModalPhoto(id, title);
           };
+          article.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.key === 'Enter') {
+                link_image.click();
+                }
+            });
 
           src_video.setAttribute("src", picture);
           src_video.setAttribute("type", "video/mp4");
