@@ -13,8 +13,8 @@
   <body>
     <div id="overlay"></div>
     <header>
-      <a class="indexable_parent parent_logo"  href="./index.html">
-        <img src="assets/images/logo.png" tabindex="0"  class="logo" alt="Fisheye Home page" role="Image link"/>
+      <a class="parent_logo" tabindex="-1"  href="./index.html">
+        <img src="assets/images/logo.png" tabindex="0"  class="logo indexable_parent" alt="Fisheye Home page" role="Image link"/>
       </a>
     </header>
     <main id="main" aria-hidden="false">
@@ -27,12 +27,12 @@
         <section class="filter">
           <h4 class="title_filter">Trier Par</h4>
           <a onclick="openFilter()" class="mainFilter" id="mainFilter">
-            <h3 class="mainFilterTxt" tabindex="0" id="filterFirst" data-parent="pop">Popularité</h3>
+            <h3 class="mainFilterTxt indexable_parent"  tabindex="0" id="filterFirst" data-parent="pop">Popularité</h3>
             <img class="chrv" id="chrv" src="../assets/icons/down-arrow.svg" alt="chevron">
             <div class="mainFiltersHide" id="mainFiltersHide">
               <hr/>
 
-              <div tabindex="0" class="filterSecond" id="filterSecond" data-parent="date">
+              <div  tabindex="0" class="filterSecond indexable_parent" id="filterSecond" data-parent="date">
                 <h3 id="Txtfilter1" class="mainFilterTxt">
                   Date
                 </h3>
@@ -40,7 +40,7 @@
 
               <hr/>
 
-              <div tabindex="0" class="filterThird" id="filterThird" data-parent="title">
+              <div tabindex="0" class="filterThird indexable_parent" id="filterThird" data-parent="title">
                 <h3 id="Txtfilter2" class="mainFilterTxt">
                   Titre
                 </h3>
@@ -67,20 +67,20 @@
               <h2 id="nameProfilForContact"></h2>
             </div>
 
-            <img src="assets/icons/close_white.svg" alt="icon-close" onclick="closeModal()"/>
+            <img tabindex="0" aria-label="Close Contact form" src="assets/icons/close_white.svg" alt="icon-close" onclick="closeModal()"/>
           </header>
           <form>
             <div>
               <label for="firstname">Prénom</label>
-              <input id="firstname" name="firstname"/>
+              <input aria-label="First name" id="firstname" name="firstname"/>
               <label for="lastname">Nom</label>
-              <input id="lastname" name="lastname"/>
+              <input aria-label="Last name" id="lastname" name="lastname"/>
               <label for="mail">Email</label>
-              <input id="mail" name="mail"/>
+              <input aria-label="Email" id="mail" name="mail"/>
               <label for="message">Votre message</label>
-              <textarea id="message" name="message"></textarea>
+              <textarea aria-label="Your message" id="message" name="message"></textarea>
             </div>
-            <div onclick="closeModal(true)" class="contact_button">
+            <div tabindex="0" aria-label="Send" onclick="closeModal(true)" class="contact_button">
               Envoyer
             </div>
           </form>

@@ -53,14 +53,12 @@ function mediaFactory(data, arrayComplete) {
     arrOftabindex.forEach(element => {
       element.tabIndex="-1";
     });
-    // console.log(arrOftabindex);
   }
   function FOCUS_PARENTS_TABINDEX(){
     let arrOftabindex =document.querySelectorAll(".indexable_parent");
     arrOftabindex.forEach(element => {
       element.tabIndex="0";
     });
-    // console.log(arrOftabindex);
   }
 
   const trapFocus = (element, prevFocusableElement = document.activeElement) => {
@@ -258,7 +256,7 @@ function mediaFactory(data, arrayComplete) {
     content.style.borderRadius = "5px";
     content.tabIndex="0";
     content.classList.add("indexable_child");
-    // 
+    
     if (media_select.video) {
       //Media === vidéo
       const src_video = document.createElement("source");

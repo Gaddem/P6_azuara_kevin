@@ -216,6 +216,19 @@ async function displayDataPhotographer(arrayDataInfo) {
   info_location.appendChild(h4);
 }
 
+function UNFOCUS_PARENTS_TABINDEX(){
+  let arrOftabindex =document.querySelectorAll(".indexable_parent");
+  arrOftabindex.forEach(element => {
+    element.tabIndex="-1";
+  });
+}
+function FOCUS_PARENTS_TABINDEX(){
+  let arrOftabindex =document.querySelectorAll(".indexable_parent");
+  arrOftabindex.forEach(element => {
+    element.tabIndex="0";
+  });
+}
+
 //Close Modal Contact
 function closeModal(finish) {
   const modal = document.getElementById("contact_modal");
@@ -238,10 +251,14 @@ function closeModal(finish) {
       Message: message,
     };
     console.log(objectLog);
+    FOCUS_PARENTS_TABINDEX();
+
   }
 }
 //Open Modal Contact
 function displayModal() {
+  UNFOCUS_PARENTS_TABINDEX();
+  document.dispatchEvent(new KeyboardEvent('keydown', {'key':'Shift'} ));
   const modal = document.getElementById("contact_modal");
   const main = document.getElementById("main");
   main.setAttribute("aria-hidden", "true");
@@ -259,7 +276,13 @@ function displayModal() {
   mail.value = "";
   message.value = "";
 }
-
+// const
+// arrowLeft.addEventListener("keyup", function(event) {
+//   event.preventDefault();
+//   if (event.key === 'Enter') {
+//     arrowLeft.click();
+//       }
+//   });
 async function init() {
   let params = new URL(document.location).searchParams;
   let id_photographer = params.get("id");
