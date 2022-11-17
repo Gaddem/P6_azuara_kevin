@@ -13,26 +13,26 @@
   <body>
     <div id="overlay"></div>
     <header>
-      <a href="./index.html">
-        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" role="Image link"/>
+      <a class="indexable_parent parent_logo"  href="./index.html">
+        <img src="assets/images/logo.png" tabindex="0"  class="logo" alt="Fisheye Home page" role="Image link"/>
       </a>
     </header>
     <main id="main" aria-hidden="false">
       <div>
         <div class="photograph-header">
           <div class="photograph_txt"></div>
-          <button class="contact_button" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
+          <button class="contact_button indexable_parent" tabindex="0" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
           <div class="photograph_photo"></div>
         </div>
         <section class="filter">
           <h4 class="title_filter">Trier Par</h4>
           <a onclick="openFilter()" class="mainFilter" id="mainFilter">
-            <h3 class="mainFilterTxt" id="filterFirst" data-parent="pop">Popularité</h3>
-            <img class="chrv" src="../assets/icons/down-arrow.svg" alt="chevron">
+            <h3 class="mainFilterTxt" tabindex="0" id="filterFirst" data-parent="pop">Popularité</h3>
+            <img class="chrv" id="chrv" src="../assets/icons/down-arrow.svg" alt="chevron">
             <div class="mainFiltersHide" id="mainFiltersHide">
               <hr/>
 
-              <div class="filterSecond" id="filterSecond" data-parent="date">
+              <div tabindex="0" class="filterSecond" id="filterSecond" data-parent="date">
                 <h3 id="Txtfilter1" class="mainFilterTxt">
                   Date
                 </h3>
@@ -40,7 +40,7 @@
 
               <hr/>
 
-              <div class="filterThird" id="filterThird" data-parent="title">
+              <div tabindex="0" class="filterThird" id="filterThird" data-parent="title">
                 <h3 id="Txtfilter2" class="mainFilterTxt">
                   Titre
                 </h3>

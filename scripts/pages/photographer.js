@@ -35,11 +35,13 @@ async function FILTER_MEDIA(type, mediasPhotographer) {
       });
       break;
     case "date":
-      newArray = mediasPhotographer.sort((a, b) => {
-        let da = new Date(a.date),
-          db = new Date(b.date);
-        return da - db;
-      });
+      newArray = mediasPhotographer.sort((d1, d2) => new Date(d1.date).getTime() - new Date(d2.date).getTime());
+      // newArray = mediasPhotographer.sort((a, b) => {
+        // let da = new Date(a.date);
+        // let db = new Date(b.date);
+        // return da - db;
+      //   return new Date(b.date) - new Date(a.date);
+      // });
       break;
     case "title":
       newArray = mediasPhotographer.sort((a, b) => {
@@ -55,13 +57,15 @@ async function FILTER_MEDIA(type, mediasPhotographer) {
       });
       break;
     default:
-      mediasPhotographer.sort((a, b) => {
-        let nbA = a.likes,
-          nbB = b.likes;
-        return nbA - nbB;
-      });
+      console.log("erreur")
+      // mediasPhotographer.sort((a, b) => {
+      //   let nbA = a.likes,
+      //     nbB = b.likes;
+      //   return nbA - nbB;
+      // });
       break;
   }
+  // console.log(newArray);
   displayMediaPhotographer(newArray, true);
 }
 
@@ -70,16 +74,12 @@ let ArrayMedia = [];
 
 const filter1 = document.getElementById("filterSecond");
 const filter2 = document.getElementById("filterThird");
-
 function REORGANIZE_FILTER(valueFilter) {
   const filter0 = document.getElementById("filterFirst");
-  const filter1 = document.getElementById("filterSecond");
-  const filter2 = document.getElementById("filterThird");
-
+const filter1 = document.getElementById("filterSecond");
+const filter2 = document.getElementById("filterThird");
   const Txtfilter1 = document.getElementById("Txtfilter1");
   const Txtfilter2 = document.getElementById("Txtfilter2");
-
-  console.log(valueFilter);
   if (valueFilter == "pop") {
     filter0.dataset.parent = "pop";
     filter0.innerHTML = "Popularité";
@@ -104,13 +104,17 @@ function REORGANIZE_FILTER(valueFilter) {
   }
 }
 
-filter1.addEventListener("click", function () {
-  const valueOfFilterF = filter1.dataset.parent;
+filter1.addEventListener("click", function (event) {
+  console.log("1");
+  event.preventDefault();
+  var valueOfFilterF = filter1.dataset.parent;
   REORGANIZE_FILTER(valueOfFilterF);
   FILTER_MEDIA(valueOfFilterF, ArrayMedia);
 });
-filter2.addEventListener("click", function () {
-  const valueOfFilterS = filter2.dataset.parent;
+filter2.addEventListener("click", function (event) {
+  console.log("2");
+  event.preventDefault();
+  var valueOfFilterS = filter2.dataset.parent;
   REORGANIZE_FILTER(valueOfFilterS);
   FILTER_MEDIA(valueOfFilterS, ArrayMedia);
 });
@@ -119,6 +123,7 @@ filter2.addEventListener("click", function () {
 
 async function displayMediaPhotographer(mediasPhotographer, already) {
   const medias_location = document.querySelector(".medias_section");
+  medias_location.style.marginBottom="100px";
   if (already) {
     medias_location.innerHTML = "";
   }
@@ -258,6 +263,13 @@ function displayModal() {
 async function init() {
   let params = new URL(document.location).searchParams;
   let id_photographer = params.get("id");
+  let filter_page = document.getElementById("filterFirst");
+  filter_page.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+          openFilter();
+          }
+    });
   await getInfosPhotographer(id_photographer).then(async (resPhotographer) => {
     await displayDataPhotographer(resPhotographer);
     await getMediaPhotographer(id_photographer).then(async (resMedia) => {

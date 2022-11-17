@@ -1,4 +1,4 @@
-function photographerFactory(data) {
+function photographerFactory(data,redirectionPROFIL) {
     const { name, portrait ,city ,country, tagline, price, id} = data;
 
     const picture = `assets/photographers/${portrait}`;
@@ -17,6 +17,13 @@ function photographerFactory(data) {
         sectionProfil.style.justifyContent="center";
         sectionProfil.style.alignItems="center";
         sectionProfil.setAttribute("aria-label",name)
+        sectionProfil.setAttribute("tabindex", "0");
+        sectionProfil.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.key === 'Enter') {
+                redirectionPROFIL(id);
+                }
+            });
 
         article.setAttribute("id", id);
         img.setAttribute("src", picture);
@@ -29,10 +36,8 @@ function photographerFactory(data) {
 
         sectionProfil.appendChild(img);
         sectionProfil.appendChild(h2);
-        article.appendChild(sectionProfil);
 
-        // article.appendChild(img);
-        // article.appendChild(h2);
+        article.appendChild(sectionProfil);
         article.appendChild(h3);
         article.appendChild(h4);
         article.appendChild(h5);

@@ -48,35 +48,93 @@ function mediaFactory(data, arrayComplete) {
     image || video
   }`;
 
+  function UNFOCUS_PARENTS_TABINDEX(){
+    let arrOftabindex =document.querySelectorAll(".indexable_parent");
+    arrOftabindex.forEach(element => {
+      element.tabIndex="-1";
+    });
+    // console.log(arrOftabindex);
+  }
+  function FOCUS_PARENTS_TABINDEX(){
+    let arrOftabindex =document.querySelectorAll(".indexable_parent");
+    arrOftabindex.forEach(element => {
+      element.tabIndex="0";
+    });
+    // console.log(arrOftabindex);
+  }
+
+  const trapFocus = (element, prevFocusableElement = document.activeElement) => {
+    const focusableEls = Array.from(element.querySelectorAll(".indexable_child"));
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+    let currentFocus = null;
+    firstFocusableEl.focus();
+    currentFocus = firstFocusableEl;
+    const handleFocus = e => {
+      e.preventDefault();
+      if (focusableEls.includes(e.target)) {
+        currentFocus = e.target;
+      } else {
+        if (currentFocus === firstFocusableEl) {
+          lastFocusableEl.focus();
+        } else {
+          firstFocusableEl.focus();
+        }
+        currentFocus = document.activeElement;
+      }
+    };
+
+    document.addEventListener("focus", handleFocus, true);
+
+    return {
+      onClose: () => {
+        document.removeEventListener("focus", handleFocus, true);
+        prevFocusableElement.focus();
+      }
+    };
+  };
+
   //Ouverture du modal
   function openModalPhoto(id, title_media) {
+    UNFOCUS_PARENTS_TABINDEX();
+    document.dispatchEvent(new KeyboardEvent('keydown', {'key':'Shift'} ));
     const overlay = document.getElementById("overlay");
     const modal = document.getElementById("modal_photo");
     const parent = document.getElementById("modal_photo_into");
     const icon_close = document.createElement("img");
     const placeMedia = document.querySelector(".placeItem");
     parent.setAttribute("aria-hidden", "false");
-    // parent.focus();
 
     const indexMediaInArray = arrayComplete.findIndex((object) => {
       return object.id == id;
     });
     placeMedia.setAttribute("id", indexMediaInArray);
     icon_close.setAttribute("id", "close_red");
+    icon_close.tabIndex = 0;
+    icon_close.focus();
     icon_close.onclick = function () {
       closeModalPhoto();
     };
+    icon_close.addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.key === 'Enter') {
+        icon_close.click();
+          }
+      });
     icon_close.setAttribute("src", "assets/icons/close_red.svg");
     icon_close.setAttribute("alt", "Close dialog");
     icon_close.setAttribute("ari-label", "Close dialog");
-
+    icon_close.classList.add("indexable_child");
+    
     DisplayArrow("left"); //Creation flèche gauche
     DisplayContentMedia(title_media, false); //Creation media -> première ouverture
     DisplayArrow("right"); //Creation flèche droite
     modal.style.display = "block";
     overlay.style.display = "block";
     parent.appendChild(icon_close);
+    trapFocus(parent);
   }
+
   function closeModalPhoto() {
     const overlay = document.getElementById("overlay");
     const modal = document.getElementById("modal_photo");
@@ -85,7 +143,7 @@ function mediaFactory(data, arrayComplete) {
     modal.style.display = "none";
     overlay.style.display = "none";
     modalInto.innerHTML = "";
-    // console.log(TakeGoodName(namePhotographer))
+    FOCUS_PARENTS_TABINDEX();
   }
 
   //Affichage d'une fleche
@@ -98,7 +156,7 @@ function mediaFactory(data, arrayComplete) {
       arrowLeft.setAttribute("src", "../assets/icons/left-arrow.svg");
       arrowLeft.setAttribute("alt", "Previous image");
       arrowLeft.setAttribute("aria-label", "Previous image");
-
+      arrowLeft.classList.add("indexable_child");
       arrowLeft.style.width = "48px";
       arrowLeft.style.height = "29.64px";
       arrowLeft.style.cursor = "pointer";
@@ -119,13 +177,19 @@ function mediaFactory(data, arrayComplete) {
         placeMedia.setAttribute("id", newIndex);
         DisplayContentMedia(newTitle, true);
       };
+      arrowLeft.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.key === 'Enter') {
+          arrowLeft.click();
+            }
+        });
       parent.appendChild(arrowLeft);
     } else {
       arrowRight.setAttribute("tabindex", "0");
       arrowRight.setAttribute("src", "../assets/icons/left-arrow.svg");
       arrowRight.setAttribute("alt", "Next image");
       arrowRight.setAttribute("aria-label", "Next image");
-      // arrowRight.setAttribute("onClick","");
+      arrowRight.classList.add("indexable_child");
       arrowRight.style.width = "48px";
       arrowRight.style.height = "29.64px";
       arrowRight.style.cursor = "pointer";
@@ -144,6 +208,12 @@ function mediaFactory(data, arrayComplete) {
         placeMedia.setAttribute("id", newIndex);
         DisplayContentMedia(newTitle, true);
       };
+      arrowRight.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.key === 'Enter') {
+          arrowRight.click();
+            }
+        });
 
       parent.appendChild(arrowRight);
     }
@@ -186,7 +256,9 @@ function mediaFactory(data, arrayComplete) {
     content.style.height = "900px";
     content.style.objectFit = "cover";
     content.style.borderRadius = "5px";
-
+    content.tabIndex="0";
+    content.classList.add("indexable_child");
+    // 
     if (media_select.video) {
       //Media === vidéo
       const src_video = document.createElement("source");
@@ -208,7 +280,7 @@ function mediaFactory(data, arrayComplete) {
         }`
       );
     }
-
+    // content.tabIndex=0;
     mediaAndInfo.appendChild(content); //Media
     mediaAndInfo.appendChild(titles); //Titre media
 
@@ -219,6 +291,7 @@ function mediaFactory(data, arrayComplete) {
     if (image || video) {
       const article = document.createElement("article");
       article.setAttribute("tabindex", "0");
+      article.classList.add("indexable_parent");
       article.setAttribute("id", id);
       const type = image ? "image" : "video";
       switch (type) {
@@ -233,6 +306,7 @@ function mediaFactory(data, arrayComplete) {
             if (event.key === 'Enter') {
                 link_image.click();
                 }
+                article.focus();
             });
           const img = document.createElement("img");
 
@@ -259,8 +333,9 @@ function mediaFactory(data, arrayComplete) {
           article.addEventListener("keyup", function(event) {
             event.preventDefault();
             if (event.key === 'Enter') {
-                link_image.click();
+              link_video.click();
                 }
+                article.focus();
             });
 
           src_video.setAttribute("src", picture);

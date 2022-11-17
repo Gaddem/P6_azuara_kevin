@@ -11,13 +11,16 @@
 
             return test;
     }
+    function redirectionPROFIL (idPhotographer){
+        window.location.href="photographer.html?id="+idPhotographer;
+    }
 
     async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
         photographers.forEach((photographer) => {
-            const photographerModel = photographerFactory(photographer);
+            const photographerModel = photographerFactory(photographer,redirectionPROFIL);
             const userCardDOM = photographerModel.getUserCardDOM();
-            userCardDOM.addEventListener("click",()=>{window.location.href="photographer.html?id="+photographer.id})
+            userCardDOM.addEventListener("click",()=>redirectionPROFIL(photographer.id))
             photographersSection.appendChild(userCardDOM);
         });
     };
