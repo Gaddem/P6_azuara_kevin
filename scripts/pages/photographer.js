@@ -251,9 +251,8 @@ function closeModal(finish) {
       Message: message,
     };
     console.log(objectLog);
-    FOCUS_PARENTS_TABINDEX();
-
   }
+  FOCUS_PARENTS_TABINDEX();
 }
 //Open Modal Contact
 function displayModal() {

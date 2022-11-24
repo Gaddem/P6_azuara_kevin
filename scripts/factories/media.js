@@ -221,68 +221,79 @@ function mediaFactory(data, arrayComplete) {
   function DisplayContentMedia(title_media, already) {
     const placeMedia = document.querySelector(".placeItem");
     const id = arrayComplete[placeMedia.id].id;
-
-    if (already) {
-      //Already permet de savoir s'il faut vider le contenu actif pour ne pas dupliquer les affichages
-      const contentNowToTrash = document.getElementById("toConsom");
-      contentNowToTrash.innerHTML = "";
-      contentNowToTrash.remove();
-    }
-    let media_select_array = arrayComplete.filter(
+    const media_select_array = arrayComplete.filter(
       (element) => element.id == id
     );
     let media_select = media_select_array[0];
-    const modal_into = document.getElementById("modal_photo_into");
-    modal_into.setAttribute("aria-label", "image closeup view");
-    const mediaAndInfo = document.createElement("section"); //Cette section contient tout le contenu qui doit switcher lorsqu'on change change de média
-    mediaAndInfo.setAttribute("id", "toConsom");
-    mediaAndInfo.style.display = "flex";
-    mediaAndInfo.style.flexDirection = "column";
-    mediaAndInfo.style.justifyContent = "flex-start";
 
-    const titles = document.createElement("h1"); //Titre média
-    titles.style.fontWeight = 400;
-    titles.style.fontSize = "24px";
-    titles.style.lineHeight = 3;
-    titles.style.margin = 0;
-    titles.textContent = title_media;
+    if (already) {      //Already permet de savoir s'il faut vider le contenu actif pour ne pas dupliquer les affichages
+      const titleTemp = document.getElementById("title_off");
+      titleTemp.textContent = title_media;
+      const videoTempChange = document.getElementById("VIDEO_CHANGE");
+      const srcTempVideo = document.getElementById("TARGET_SRC_VD");
+      const imageTempChange = document.getElementById("IMAGE_CHANGE");
+      if (media_select.video) {
+        imageTempChange.style.display="none";
+        srcTempVideo.setAttribute("src", ` ../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
+        srcTempVideo.setAttribute("type", "video/mp4");
+        srcTempVideo.setAttribute("controls", "");
+        videoTempChange.load();
+        videoTempChange.style.display="flex";
+      }else{
+        videoTempChange.style.display="none";
+        imageTempChange.style.display="flex";
+        imageTempChange.setAttribute("src",`../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`);
+      }
+    }else{
+      const titles = document.createElement("h1"); //Titre média
+      titles.style.fontWeight = 400;
+      titles.style.fontSize = "24px";
+      titles.style.lineHeight = 3;
+      titles.style.margin = 0;
+      titles.setAttribute("id","title_off");
 
-    const content = media_select.image
-      ? document.createElement("img")
-      : document.createElement("video"); //Media dans le modal
-    content.style.width = "1050px";
-    content.style.height = "900px";
-    content.style.objectFit = "cover";
-    content.style.borderRadius = "5px";
-    content.tabIndex="0";
-    content.classList.add("indexable_child");
-    
-    if (media_select.video) {
-      //Media === vidéo
+      const modal_into = document.getElementById("modal_photo_into");
+      modal_into.setAttribute("aria-label", "image closeup view");
+      const mediaAndInfo = document.createElement("section"); //Cette section contient tout le contenu qui doit switcher lorsqu'on change change de média
+      mediaAndInfo.setAttribute("id", "toConsom");
+      mediaAndInfo.style.display = "flex";
+      mediaAndInfo.style.flexDirection = "column";
+      mediaAndInfo.style.justifyContent = "flex-start";
+  
+      const contentImage=document.createElement("img");//Media IMAGE dans le modal  
+      const contentVideo=document.createElement("video");//Media VIDEO dans le modal  
+      const contentsMedia= [contentImage,contentVideo];
+      for (let index = 0; index < contentsMedia.length; index++) {
+        const mediaPossible = contentsMedia[index];
+        mediaPossible.classList.add("indexable_child");
+        mediaPossible.setAttribute("tabindex",0 );
+        mediaPossible.style.width = "1050px";
+        mediaPossible.style.height = "900px";
+        mediaPossible.style.objectFit = "cover";
+        mediaPossible.style.borderRadius = "5px";
+        mediaPossible.style.display="none"; 
+      }
       const src_video = document.createElement("source");
-      content.appendChild(src_video);
-      src_video.setAttribute(
-        "src",
-        ` ../assets/photographers/${TakeGoodName(namePhotographer)}/${
-          media_select.video
-        }`
-      );
-      src_video.setAttribute("type", "video/mp4");
-      content.setAttribute("controls", "");
-    } else {
-      //Media === image
-      content.setAttribute(
-        "src",
-        `../assets/photographers/${TakeGoodName(namePhotographer)}/${
-          media_select.image
-        }`
-      );
-    }
-    // content.tabIndex=0;
-    mediaAndInfo.appendChild(content); //Media
-    mediaAndInfo.appendChild(titles); //Titre media
+      contentVideo.setAttribute("id","VIDEO_CHANGE");
+      contentImage.setAttribute("id","IMAGE_CHANGE");
 
-    modal_into.appendChild(mediaAndInfo); //Modal complete = mediaAndInfo = Media + Titre media
+      src_video.setAttribute("id","TARGET_SRC_VD"); 
+      src_video.setAttribute("src","")
+      contentVideo.appendChild(src_video);
+      if (media_select.video) {
+        contentVideo.style.display="flex";
+        src_video.setAttribute("src", ` ../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
+        src_video.setAttribute("type", "video/mp4");
+        contentVideo.setAttribute("controls", "");
+      } else {
+        contentImage.style.display="flex";
+        contentImage.setAttribute("src",`../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`);
+      }
+      mediaAndInfo.appendChild(contentImage); //Media Image prêt
+      mediaAndInfo.appendChild(contentVideo); //Media Video prêt
+      mediaAndInfo.appendChild(titles); //Titre media
+      modal_into.appendChild(mediaAndInfo); //Modal complete = mediaAndInfo = Media + Titre media
+    }  
   }
 
   function getMediaCardDOM() {
