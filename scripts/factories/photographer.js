@@ -2,7 +2,7 @@ function photographerFactory(data,redirectionPROFIL) {
     const { name, portrait ,city ,country, tagline, price, id} = data;
 
     const picture = `assets/photographers/${portrait}`;
-
+    //Création d'un card de profil de photographe
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
         const sectionProfil = document.createElement( 'section' );

@@ -11,6 +11,7 @@ function mediaFactory(data, arrayComplete) {
     video,
   } = data;
 
+  //Fonction qui retourn le nom du photographe tout à le modifiant pour qu'il soit similaire aux Fichiers
   function TakeGoodName(namePhotographer) {
     let firstName = namePhotographer.split(" ")[0];
     if (firstName.includes("-")) {
@@ -47,13 +48,14 @@ function mediaFactory(data, arrayComplete) {
   const picture = `../assets/photographers/${TakeGoodName(namePhotographer)}/${
     image || video
   }`;
-
+//Fonction qui défocus les éléments parent à la page
   function UNFOCUS_PARENTS_TABINDEX(){
     let arrOftabindex =document.querySelectorAll(".indexable_parent");
     arrOftabindex.forEach(element => {
       element.tabIndex="-1";
     });
   }
+  //Fonction qui permet le focus des éléments parent à la page
   function FOCUS_PARENTS_TABINDEX(){
     let arrOftabindex =document.querySelectorAll(".indexable_parent");
     arrOftabindex.forEach(element => {
@@ -61,6 +63,8 @@ function mediaFactory(data, arrayComplete) {
     });
   }
 
+  
+//Fonction qui permet le focus des éléments du modal
   const trapFocus = (element, prevFocusableElement = document.activeElement) => {
     const focusableEls = Array.from(element.querySelectorAll(".indexable_child"));
     const firstFocusableEl = focusableEls[0];
@@ -92,7 +96,7 @@ function mediaFactory(data, arrayComplete) {
     };
   };
 
-  //Ouverture du modal
+  //Ouverture du modal photo
   function openModalPhoto(id, title_media) {
     UNFOCUS_PARENTS_TABINDEX();
     document.dispatchEvent(new KeyboardEvent('keydown', {'key':'Shift'} ));
@@ -144,7 +148,7 @@ function mediaFactory(data, arrayComplete) {
     FOCUS_PARENTS_TABINDEX();
   }
 
-  //Affichage d'une fleche
+  //Affichage d'une fleche en fonction de son type ( gauche || droite)+ attribution des actions
   function DisplayArrow(type) {
     const parent = document.getElementById("modal_photo_into");
     const arrowRight = document.createElement("img");
@@ -226,25 +230,25 @@ function mediaFactory(data, arrayComplete) {
     );
     let media_select = media_select_array[0];
 
-    if (already) {      //Already permet de savoir s'il faut vider le contenu actif pour ne pas dupliquer les affichages
+    if (already) {//Already permet de savoir s'il faut vider le contenu actif pour ne pas dupliquer les affichages
       const titleTemp = document.getElementById("title_off");
       titleTemp.textContent = title_media;
       const videoTempChange = document.getElementById("VIDEO_CHANGE");
       const srcTempVideo = document.getElementById("TARGET_SRC_VD");
       const imageTempChange = document.getElementById("IMAGE_CHANGE");
-      if (media_select.video) {
+      if (media_select.video) {//Media === video
         imageTempChange.style.display="none";
         srcTempVideo.setAttribute("src", ` ../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
         srcTempVideo.setAttribute("type", "video/mp4");
         srcTempVideo.setAttribute("controls", "");
         videoTempChange.load();
         videoTempChange.style.display="flex";
-      }else{
+      }else{//Media === image
         videoTempChange.style.display="none";
         imageTempChange.style.display="flex";
         imageTempChange.setAttribute("src",`../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`);
       }
-    }else{
+    }else{//Création du premier contenu média
       const titles = document.createElement("h1"); //Titre média
       titles.style.fontWeight = 400;
       titles.style.fontSize = "24px";
@@ -296,6 +300,7 @@ function mediaFactory(data, arrayComplete) {
     }  
   }
 
+  //Création card d'un média 
   function getMediaCardDOM() {
     if (image || video) {
       const article = document.createElement("article");
