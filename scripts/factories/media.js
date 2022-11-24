@@ -45,7 +45,7 @@ function mediaFactory(data, arrayComplete) {
       totalLike.textContent = valueToUp.toString();
     }
   }
-  const picture = `../assets/photographers/${TakeGoodName(namePhotographer)}/${
+  const picture = `./assets/photographers/${TakeGoodName(namePhotographer)}/${
     image || video
   }`;
 //Fonction qui défocus les éléments parent à la page
@@ -258,7 +258,7 @@ function mediaFactory(data, arrayComplete) {
       const imageTempChange = document.getElementById("IMAGE_CHANGE");
       if (media_select.video) {//Media === video
         imageTempChange.style.display="none";
-        srcTempVideo.setAttribute("src", ` ../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
+        srcTempVideo.setAttribute("src", ` ./assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
         srcTempVideo.setAttribute("type", "video/mp4");
         srcTempVideo.setAttribute("controls", "");
         videoTempChange.load();
@@ -266,7 +266,7 @@ function mediaFactory(data, arrayComplete) {
       }else{//Media === image
         videoTempChange.style.display="none";
         imageTempChange.style.display="flex";
-        imageTempChange.setAttribute("src",`../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`);
+        imageTempChange.setAttribute("src",`./assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`);
       }
     }else{//Création du premier contenu média
       const titles = document.createElement("h1"); //Titre média
@@ -306,12 +306,12 @@ function mediaFactory(data, arrayComplete) {
       contentVideo.appendChild(src_video);
       if (media_select.video) {
         contentVideo.style.display="flex";
-        src_video.setAttribute("src", ` ../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
+        src_video.setAttribute("src", ` ./assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.video}`);
         src_video.setAttribute("type", "video/mp4");
         contentVideo.setAttribute("controls", "");
       } else {
         contentImage.style.display="flex";
-        contentImage.setAttribute("src",`../assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`);
+        contentImage.setAttribute("src",`./assets/photographers/${TakeGoodName(namePhotographer)}/${media_select.image}`);
       }
       mediaAndInfo.appendChild(contentImage); //Media Image prêt
       mediaAndInfo.appendChild(contentVideo); //Media Video prêt
