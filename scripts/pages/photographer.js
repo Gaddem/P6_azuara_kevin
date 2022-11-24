@@ -1,6 +1,6 @@
 //Récupération des données du photographe grâce à l'id du photographe
 async function getInfosPhotographer(id_photographer) {
-  const test = await fetch("../../data/photographers.json")
+  const test = await fetch("./data/photographers.json")
     .then((response) => response.json())
     .then((json) => {
       let arrayOfOncePhotographer = json.photographers.filter(
@@ -13,7 +13,7 @@ async function getInfosPhotographer(id_photographer) {
 
 //Récupération du tableau des médias du photographe grâce à l'id du photographe
 async function getMediaPhotographer(id_photographer) {
-  const test = await fetch("../../data/photographers.json")
+  const test = await fetch("./data/photographers.json")
     .then((response) => response.json())
     .then((json) => {
       let arrayOfAllMedia = json.media.filter(
