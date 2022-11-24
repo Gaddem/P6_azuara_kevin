@@ -157,6 +157,7 @@ function mediaFactory(data, arrayComplete) {
       arrowLeft.setAttribute("tabindex", "0");
       arrowLeft.setAttribute("src", "../assets/icons/left-arrow.svg");
       arrowLeft.setAttribute("alt", "Previous image");
+      arrowLeft.setAttribute("id", "left_ar");
       arrowLeft.setAttribute("aria-label", "Previous image");
       arrowLeft.classList.add("indexable_child");
       arrowLeft.style.width = "48px";
@@ -181,16 +182,18 @@ function mediaFactory(data, arrayComplete) {
       };
       arrowLeft.addEventListener("keyup", function(event) {
         event.preventDefault();
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' ) {
           arrowLeft.click();
             }
         });
+        
       parent.appendChild(arrowLeft);
     } else {
       arrowRight.setAttribute("tabindex", "0");
       arrowRight.setAttribute("src", "../assets/icons/left-arrow.svg");
       arrowRight.setAttribute("alt", "Next image");
       arrowRight.setAttribute("aria-label", "Next image");
+      arrowRight.setAttribute("id", "right_ar");
       arrowRight.classList.add("indexable_child");
       arrowRight.style.width = "48px";
       arrowRight.style.height = "29.64px";
@@ -220,6 +223,23 @@ function mediaFactory(data, arrayComplete) {
       parent.appendChild(arrowRight);
     }
   }
+
+
+  document.onkeydown = function(e) {
+    let arrowRight=document.getElementById("right_ar");
+    let arrowLeft= document.getElementById("left_ar");
+    if(arrowRight || arrowLeft){
+      switch (e.keyCode) {
+        case 37:
+          arrowLeft.click();
+            break;
+        case 39:
+          arrowRight.click();
+            break;
+    }
+    }
+   
+};
 
   //Afficher dans un le media sélectionné
   function DisplayContentMedia(title_media, already) {
