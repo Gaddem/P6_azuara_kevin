@@ -104,20 +104,37 @@ const filter2 = document.getElementById("filterThird");
   }
 }
 
+function filtrage(filterNB) {
+  let valueOfFilter;
+  if(filterNB==1){
+    valueOfFilter = filter1.dataset.parent;
+  }else{
+    valueOfFilter = filter2.dataset.parent;
+  }
+  REORGANIZE_FILTER(valueOfFilter);
+  FILTER_MEDIA(valueOfFilter, ArrayMedia);
+}
+
 filter1.addEventListener("click", function (event) {
-  console.log("1");
   event.preventDefault();
-  var valueOfFilterF = filter1.dataset.parent;
-  REORGANIZE_FILTER(valueOfFilterF);
-  FILTER_MEDIA(valueOfFilterF, ArrayMedia);
+  filtrage(1);
 });
 filter2.addEventListener("click", function (event) {
-  console.log("2");
   event.preventDefault();
-  var valueOfFilterS = filter2.dataset.parent;
-  REORGANIZE_FILTER(valueOfFilterS);
-  FILTER_MEDIA(valueOfFilterS, ArrayMedia);
+  filtrage(2);
 });
+filter1.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.key === 'Enter') {
+      filtrage(1);
+      }
+  });
+  filter2.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+        filtrage(2);
+        }
+    });  
 
 // Quand une nouvelle <option> est selectionnée
 
@@ -275,13 +292,22 @@ function displayModal() {
   mail.value = "";
   message.value = "";
 }
-// const
-// arrowLeft.addEventListener("keyup", function(event) {
-//   event.preventDefault();
-//   if (event.key === 'Enter') {
-//     arrowLeft.click();
-//       }
-//   });
+const icon_close_contact = document.getElementById("icon_close_contact");
+const enter_contact = document.getElementById("enter_contact");
+
+icon_close_contact.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.key === 'Enter') {
+    icon_close_contact.click();
+      }
+  });
+  enter_contact.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+      enter_contact.click();
+        }
+    });
+
 async function init() {
   let params = new URL(document.location).searchParams;
   let id_photographer = params.get("id");
