@@ -55,8 +55,9 @@ async function displayDataPhotographer(arrayDataInfo) {
   h4.style.lineHeight = "23.44px";
   h4.style.fontWeight = "400";
   h4.style.color = "#525252";
-
-  img.setAttribute("src", arrayDataInfo.portrait);
+  
+  let src_temp= arrayDataInfo.portrait.slice(1);
+  img.setAttribute("src",src_temp );
   img.setAttribute("alt", arrayDataInfo.name);
   img.setAttribute("aria-label", arrayDataInfo.name);
   h3.textContent = arrayDataInfo.city + ", " + arrayDataInfo.country;
