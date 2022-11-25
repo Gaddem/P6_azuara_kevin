@@ -110,7 +110,7 @@ async function displayPriceAndLike(tabMedias, price_photographer) {
   likes.style.color = "#000000";
   likes.style.margin = 0;
 
-  icon_like.setAttribute("src", "../assets/icons/heart_black.svg");
+  icon_like.setAttribute("src", "./assets/icons/heart_black.svg");
   icon_like.style.fill = "#000000";
   icon_like.style.width = "17.5px";
   icon_like.style.height = "18.35px";

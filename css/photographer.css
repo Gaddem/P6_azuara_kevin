@@ -62,7 +62,7 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     background: transparent;
-    background-image: url("../assets/icons/down-arrow.svg");
+    background-image: url("./assets/icons/down-arrow.svg");
     background-repeat: no-repeat;
     background-position-x: 100%;
     background-position-y: 50%;

@@ -155,7 +155,7 @@ function mediaFactory(data, arrayComplete) {
     const arrowLeft = document.createElement("img");
     if (type === "left") {
       arrowLeft.setAttribute("tabindex", "0");
-      arrowLeft.setAttribute("src", "../assets/icons/left-arrow.svg");
+      arrowLeft.setAttribute("src", "./assets/icons/left-arrow.svg");
       arrowLeft.setAttribute("alt", "Previous image");
       arrowLeft.setAttribute("id", "left_ar");
       arrowLeft.setAttribute("aria-label", "Previous image");
@@ -190,7 +190,7 @@ function mediaFactory(data, arrayComplete) {
       parent.appendChild(arrowLeft);
     } else {
       arrowRight.setAttribute("tabindex", "0");
-      arrowRight.setAttribute("src", "../assets/icons/left-arrow.svg");
+      arrowRight.setAttribute("src", "./assets/icons/left-arrow.svg");
       arrowRight.setAttribute("alt", "Next image");
       arrowRight.setAttribute("aria-label", "Next image");
       arrowRight.setAttribute("id", "right_ar");
@@ -420,7 +420,7 @@ function mediaFactory(data, arrayComplete) {
       };
 
       const icon_like = document.createElement("img");
-      icon_like.setAttribute("src", "../assets/icons/heart_red.svg");
+      icon_like.setAttribute("src", "./assets/icons/heart_red.svg");
       icon_like.setAttribute("alt", "likes");
       icon_like.style.width = "17.5px";
       icon_like.style.height = "18.35px";
