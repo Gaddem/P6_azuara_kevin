@@ -56,7 +56,8 @@ async function displayDataPhotographer(arrayDataInfo) {
   h4.style.fontWeight = "400";
   h4.style.color = "#525252";
   
-  let src_temp= arrayDataInfo.portrait.slice(1);
+  let src_temp= arrayDataInfo.portrait.slice(3);
+  console.log(src_temp);
   img.setAttribute("src",src_temp );
   img.setAttribute("alt", arrayDataInfo.name);
   img.setAttribute("aria-label", arrayDataInfo.name);
