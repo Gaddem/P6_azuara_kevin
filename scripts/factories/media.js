@@ -42,7 +42,7 @@ function mediaFactory(data, arrayComplete) {
             article.focus();
           });
           const img = document.createElement("img");
-
+          img.setAttribute("alt", `Image ${title}`);
           img.setAttribute("src", media_general);
 
           img.style.width = "350px";
@@ -59,7 +59,7 @@ function mediaFactory(data, arrayComplete) {
           const link_video = document.createElement("div");
           const video = document.createElement("video");
           const src_video = document.createElement("source");
-
+          video.setAttribute("alt", `Video ${title}`);
           link_video.onclick = function () {
             openModalPhoto(id, title);
           };
