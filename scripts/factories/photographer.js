@@ -1,4 +1,4 @@
-function photographerFactory(data,redirectionPROFIL) {
+function photographerFactory(data,redirectionProfil) {
     const { name, portrait ,city ,country, tagline, price, id} = data;
 
     const picture = `assets/photographers/${portrait}`;
@@ -21,7 +21,7 @@ function photographerFactory(data,redirectionPROFIL) {
         sectionProfil.addEventListener("keyup", function(event) {
             event.preventDefault();
             if (event.key === 'Enter') {
-                redirectionPROFIL(id);
+                redirectionProfil(id);
                 }
             });
 

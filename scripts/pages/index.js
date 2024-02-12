@@ -10,7 +10,7 @@ async function getPhotographers() {
 }
 
 //Fonction de redirection vers une page de photographe précise gâce à l'id du photographe
-function redirectionPROFIL(idPhotographer) {
+function redirectionProfil(idPhotographer) {
   window.location.href = "photographer.html?id=" + idPhotographer;
 }
 
@@ -18,10 +18,10 @@ function redirectionPROFIL(idPhotographer) {
 async function displayData(photographers) {
   const photographersSection = document.querySelector(".photographer_section");
   photographers.forEach((photographer) => {
-    const photographerModel = photographerFactory(photographer,redirectionPROFIL);
+    const photographerModel = photographerFactory(photographer,redirectionProfil);
     const userCardDOM = photographerModel.getUserCardDOM();
     userCardDOM.addEventListener("click", () =>
-      redirectionPROFIL(photographer.id)
+      redirectionProfil(photographer.id)
     );
     photographersSection.appendChild(userCardDOM);
   });

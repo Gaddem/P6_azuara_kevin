@@ -1,6 +1,6 @@
 //Ouverture Modal Contact
 function displayModal() {
-  UNFOCUS_PARENTS_TABINDEX();
+  unfocusParentsTabindex();
   document.dispatchEvent(new KeyboardEvent("keydown", { key: "Shift" }));
   const modal = document.getElementById("contact_modal");
   const main = document.getElementById("main");
@@ -43,7 +43,7 @@ function closeModal(finish) {
     };
     console.log(objectLog);
   }
-  FOCUS_PARENTS_TABINDEX();
+  focusParentsTabindex();
 }
 
 const icon_close_contact = document.getElementById("icon_close_contact");

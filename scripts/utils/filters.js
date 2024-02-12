@@ -19,7 +19,7 @@ function openingsFilter() {
 }
 
 //Filtre Media en fonction de son type ==> revois l'ordre du tableau puis lance re affichage des medias
-async function FILTER_MEDIA(type, mediasPhotographer) {
+async function filterMedia(type, mediasPhotographer) {
   let newArray = [];
   switch (type) {
     case "pop":
@@ -48,7 +48,6 @@ async function FILTER_MEDIA(type, mediasPhotographer) {
       });
       break;
     default:
-      console.log("erreur");
       break;
   }
   displayMediaPhotographer(newArray, true);
@@ -57,39 +56,39 @@ async function FILTER_MEDIA(type, mediasPhotographer) {
 var selectElem = document.getElementById("selectInputFilters");
 let ArrayMedia = [];
 
-const filter1 = document.getElementById("filterSecond");
-const filter2 = document.getElementById("filterThird");
+const filterSecondPart = document.getElementById("filterSecond");
+const filterThirdPart = document.getElementById("filterThird");
 
 // Fonction réorganise l'affichage des filtres en changeant:
 //  - le titre
 //  - sa valeur dans le data-parent
-function REORGANIZE_FILTER(valueFilter) {
+function reorganizeFilter(valueFilter) {
   const filter0 = document.getElementById("filterFirst");
-  const filter1 = document.getElementById("filterSecond");
-  const filter2 = document.getElementById("filterThird");
-  const Txtfilter1 = document.getElementById("Txtfilter1");
-  const Txtfilter2 = document.getElementById("Txtfilter2");
+  const filterSecondPart = document.getElementById("filterSecond");
+  const filterThirdPart = document.getElementById("filterThird");
+  const TxtfilterSecondPart = document.getElementById("TxtfilterSecondPart");
+  const TxtfilterThirdPart = document.getElementById("TxtfilterThirdPart");
   if (valueFilter == "pop") {
     filter0.dataset.parent = "pop";
     filter0.innerHTML = "Popularité";
-    filter1.dataset.parent = "date";
-    Txtfilter1.innerHTML = "Date";
-    filter2.dataset.parent = "title";
-    Txtfilter2.innerHTML = "Titre";
+    filterSecondPart.dataset.parent = "date";
+    TxtfilterSecondPart.innerHTML = "Date";
+    filterThirdPart.dataset.parent = "title";
+    TxtfilterThirdPart.innerHTML = "Titre";
   } else if (valueFilter == "date") {
     filter0.dataset.parent = "date";
     filter0.innerHTML = "Date";
-    filter1.dataset.parent = "pop";
-    Txtfilter1.innerHTML = "Popularité";
-    filter2.dataset.parent = "title";
-    Txtfilter2.innerHTML = "Titre";
+    filterSecondPart.dataset.parent = "pop";
+    TxtfilterSecondPart.innerHTML = "Popularité";
+    filterThirdPart.dataset.parent = "title";
+    TxtfilterThirdPart.innerHTML = "Titre";
   } else if (valueFilter == "title") {
     filter0.dataset.parent = "title";
     filter0.innerHTML = "Titre";
-    filter1.dataset.parent = "pop";
-    Txtfilter1.innerHTML = "Popularité";
-    filter2.dataset.parent = "date";
-    Txtfilter2.innerHTML = "Date";
+    filterSecondPart.dataset.parent = "pop";
+    TxtfilterSecondPart.innerHTML = "Popularité";
+    filterThirdPart.dataset.parent = "date";
+    TxtfilterThirdPart.innerHTML = "Date";
   }
 }
 
@@ -97,33 +96,33 @@ function REORGANIZE_FILTER(valueFilter) {
 function filtrage(filterNB) {
   let valueOfFilter;
   if (filterNB == 1) {
-    valueOfFilter = filter1.dataset.parent;
+    valueOfFilter = filterSecondPart.dataset.parent;
   } else {
-    valueOfFilter = filter2.dataset.parent;
+    valueOfFilter = filterThirdPart.dataset.parent;
   }
-  REORGANIZE_FILTER(valueOfFilter);
-  FILTER_MEDIA(valueOfFilter, ArrayMedia);
+  reorganizeFilter(valueOfFilter);
+  filterMedia(valueOfFilter, ArrayMedia);
 }
 
 //A l'écoute du click sur le filtre 1
-filter1.addEventListener("click", function (event) {
+filterSecondPart.addEventListener("click", function (event) {
   event.preventDefault();
   filtrage(1);
 });
 //A l'écoute du click sur le filtre 2
-filter2.addEventListener("click", function (event) {
+filterThirdPart.addEventListener("click", function (event) {
   event.preventDefault();
   filtrage(2);
 });
 //A l'écoute du bounton Entree sur le filtre 1
-filter1.addEventListener("keyup", function (event) {
+filterSecondPart.addEventListener("keyup", function (event) {
   event.preventDefault();
   if (event.key === "Enter") {
     filtrage(1);
   }
 });
 //A l'écoute du bounton Entree sur le filtre 2
-filter2.addEventListener("keyup", function (event) {
+filterThirdPart.addEventListener("keyup", function (event) {
   event.preventDefault();
   if (event.key === "Enter") {
     filtrage(2);

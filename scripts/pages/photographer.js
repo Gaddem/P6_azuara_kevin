@@ -69,6 +69,9 @@ async function displayDataPhotographer(arrayDataInfo) {
   info_location.appendChild(h3);
   info_location.appendChild(h4);
 }
+
+let allArray = [];
+let nameOfThePhotographer = "";
 //Affichage des médias du photographe
 async function displayMediaPhotographer(mediasPhotographer, already) {
   const medias_location = document.querySelector(".medias_section");
@@ -76,14 +79,16 @@ async function displayMediaPhotographer(mediasPhotographer, already) {
   if (already) {
     medias_location.innerHTML = "";
   }
-
+  allArray=mediasPhotographer;
   //Boucle sur les medias du phtographe en créant à chaun une card
   mediasPhotographer.forEach((media) => {
     const mediaModel = mediaFactory(media, mediasPhotographer);
     const userCardDOM = mediaModel.getMediaCardDOM();
     medias_location.appendChild(userCardDOM);
   });
+  return 
 }
+
 //Fonction qui affichage qui affiche l'étiquette où se situent le prix du photographe + le nombre de like total
 async function displayPriceAndLike(tabMedias, price_photographer) {
   const like_price = document.querySelector("#section_like_price");
@@ -125,14 +130,14 @@ async function displayPriceAndLike(tabMedias, price_photographer) {
 
 
 //Fonction qui défocus les éléments parent à la page
-function UNFOCUS_PARENTS_TABINDEX(){
+function unfocusParentsTabindex(){
   let arrOftabindex =document.querySelectorAll(".indexable_parent");
   arrOftabindex.forEach(element => {
     element.tabIndex="-1";
   });
 }
 //Fonction qui permet le focus des éléments parent à la page
-function FOCUS_PARENTS_TABINDEX(){
+function focusParentsTabindex(){
   let arrOftabindex =document.querySelectorAll(".indexable_parent");
   arrOftabindex.forEach(element => {
     element.tabIndex="0";
@@ -163,8 +168,9 @@ async function init() {
       //Attribution du nom du Photographe afin de retourver son dossier de photo par la suite
       const nameContact = document.getElementById("nameProfilForContact");
       nameContact.textContent = resPhotographer.name;
+      nameOfThePhotographer =  resPhotographer.name
       await displayMediaPhotographer(arrayOfMediaMoreName);
-      FILTER_MEDIA("pop", arrayOfMediaMoreName);
+      filterMedia("pop", arrayOfMediaMoreName);
       await displayPriceAndLike(arrayOfMediaMoreName, resPhotographer.price);
     });
   });
