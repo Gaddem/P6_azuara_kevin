@@ -1,3 +1,18 @@
+//Fonction qui défocus les éléments parent à la page
+function unfocusParentsTabindex(){
+  let arrOftabindex =document.querySelectorAll(".indexable_parent");
+  arrOftabindex.forEach(element => {
+    element.tabIndex="-1";
+  });
+}
+//Fonction qui permet le focus des éléments parent à la page
+function focusParentsTabindex(){
+  let arrOftabindex =document.querySelectorAll(".indexable_parent");
+  arrOftabindex.forEach(element => {
+    element.tabIndex="0";
+  });
+}
+
 //Ouverture Modal Contact
 function displayModal() {
   unfocusParentsTabindex();
