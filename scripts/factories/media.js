@@ -39,7 +39,6 @@ function mediaFactory(data, arrayComplete) {
             ) {
               link_image.click();
             }
-            article.focus();
           });
           const img = document.createElement("img");
           img.setAttribute("alt", `Image ${title}`);
@@ -71,7 +70,6 @@ function mediaFactory(data, arrayComplete) {
             ) {
               link_video.click();
             }
-            article.focus();
           });
           src_video.setAttribute("src", media_general);
           src_video.setAttribute("type", "video/mp4");
@@ -104,8 +102,8 @@ function mediaFactory(data, arrayComplete) {
       //partie like et son icon
       const like_part = document.createElement("div");
 
-      like_part.setAttribute("id", "like_part");
-
+      like_part.setAttribute("id", "like_part");  
+      like_part.setAttribute("tabindex", "0");
       //nombre like
       const nblike_article = document.createElement("h1");
       nblike_article.setAttribute("id", image || video);
@@ -116,6 +114,7 @@ function mediaFactory(data, arrayComplete) {
       nblike_article.style.fontStyle = "31.25px";
 
       //icone coeur
+      
       const link_like = document.createElement("div");
       link_like.onclick = function () {
         let media = image ? image : video;
@@ -137,21 +136,14 @@ function mediaFactory(data, arrayComplete) {
       icon_like.style.marginLeft = "4px";
 
       link_like.appendChild(icon_like); //Icone coeur pour like -> attribué à la div qui link_like qui possède la fonction d'incrémentation de like
-      like_part.setAttribute("tabindex", "0");
       like_part.appendChild(nblike_article); //Compteur de like au media
       like_part.appendChild(link_like); //Système de like sous forme d'icone coeur
       //like part = Coeur + compteur like
-
+      
       section_foot.appendChild(title_article);
       section_foot.appendChild(like_part);
       article.appendChild(section_foot);
-      article.addEventListener("focusin", function (event) {
-        if (!like_part.contains(document.activeElement)) {
-          like_part.focus();
-        } else {
-          article.focus();
-        }
-      });
+    
       return article;
     }
   }
