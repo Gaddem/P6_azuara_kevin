@@ -1,28 +1,20 @@
 //Fonction qui récupères les photographes du JSON
 async function getPhotographers() {
-  const test = await fetch("./data/photographers.json")
+  const data = await fetch("./data/photographers.json")
     .then((response) => response.json())
     .then((json) => {
       return json.photographers;
     });
 
-  return test;
-}
-
-//Fonction de redirection vers une page de photographe précise gâce à l'id du photographe
-function redirectionProfil(idPhotographer) {
-  window.location.href = "photographer.html?id=" + idPhotographer;
+  return data;
 }
 
 //Affichage des photographes avec leurs informations respectives
 async function displayData(photographers) {
   const photographersSection = document.querySelector(".photographer_section");
   photographers.forEach((photographer) => {
-    const photographerModel = photographerFactory(photographer,redirectionProfil);
+    const photographerModel = photographerFactory(photographer);
     const userCardDOM = photographerModel.getUserCardDOM();
-    userCardDOM.addEventListener("click", () =>
-      redirectionProfil(photographer.id)
-    );
     photographersSection.appendChild(userCardDOM);
   });
 }

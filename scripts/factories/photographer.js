@@ -1,29 +1,24 @@
-function photographerFactory(data,redirectionProfil) {
+function photographerFactory(data) {
     const { name, portrait ,city ,country, tagline, price, id} = data;
 
     const picture = `assets/photographers/${portrait}`;
     //Création d'un card de profil de photographe
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
-        const sectionProfil = document.createElement( 'section' );
+        const sectionProfil = document.createElement( 'a' );
         const img = document.createElement( 'img' );
         const h2 = document.createElement( 'h2' );
         const h3 = document.createElement( 'h3' );
         const h4 = document.createElement( 'h4' );
         const h5 = document.createElement( 'h5' );
-
+        sectionProfil.setAttribute('href', "photographer.html?id=" + id); 
+        sectionProfil.style.textDecoration="none";
         sectionProfil.style.display="flex";
         sectionProfil.style.flexDirection="column";
         sectionProfil.style.justifyContent="center";
         sectionProfil.style.alignItems="center";
         sectionProfil.setAttribute("aria-label",name)
         sectionProfil.setAttribute("tabindex", "0");
-        sectionProfil.addEventListener("keyup", function(event) {
-            event.preventDefault();
-            if (event.key === 'Enter') {
-                redirectionProfil(id);
-                }
-            });
 
         article.setAttribute("id", id);
         img.setAttribute("src", picture);
